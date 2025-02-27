@@ -5,11 +5,11 @@ export const sendMessage = async (req, res) => {
     try {
         const { message } = req.body;
 
-        console.log(message);
+        // console.log(message);
         
         
         const { id: receiverId } = req.params;
-        console.log(receiverId);
+        // console.log(receiverId);
         
         const senderId = req.user._id;
 
@@ -31,15 +31,15 @@ export const sendMessage = async (req, res) => {
             message
         })
 
-        // console.log(newMessage);
+        // console.log(newMessage._id);
         
 
         if(newMessage){
             conversation.messages.push(newMessage._id);
         }
 
-        // await conversation.save();
-        // await newMessage.save();
+        await conversation.save();
+        await newMessage.save();
 
         res.status(201).json(newMessage);
 
@@ -48,5 +48,26 @@ export const sendMessage = async (req, res) => {
     } catch (err) {
         console.log("Error in sendMessage controller", err.message);
         res.status(401).json({ error: "Internal Server Error" });
+    }
+};
+
+export const getMessage = async (req, res) => {
+    try {
+        const { id: userChatToId } = req.params;
+        const senderID = req.user._id;
+        // console.log(senderID);
+        
+        const conversation = await Conversation.findOne({
+            participants: { $all: [senderID, userChatToId] }
+        }).populate("messages");
+        
+        if(!conversation) return res.status(200).json([]);
+
+        const messages = conversation.messages;
+
+        res.status(201).json(messages);
+    } catch (err) {
+        console.log("Error in getMessage controller", err.message);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 };
