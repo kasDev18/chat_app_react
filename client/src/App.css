@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,16 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+
+.triangle {
+  border-style: solid;
+  border-width: 23.2vw 0 25vw 100vw;
+  border-color: transparent transparent transparent #fff;
+  transform: rotate(0deg);
+}
+
+.chat-bg{
+  opacity: 0.5;
 }
