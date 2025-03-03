@@ -4,7 +4,7 @@ function Login() {
   return (
     <div className="h-screen w-screen bg-[#984FD2] font-display">
       <div className="triangle absolute"></div>
-      <div className="flex h-screen w-screen absolute">
+      <div className="flex flex-1 h-screen w-screen absolute">
         <div className="absolute w-screen flex justify-end p-5">
           <button className="btn btn-warning mx-2">Signup</button>
           <button className="btn btn-warning btn-circle mx-2">?</button>
