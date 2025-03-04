@@ -1,5 +1,7 @@
 import React from 'react'
 
+import GenderCheckbox from './GenderCheckbox'
+
 const chat_bg = {
     opacity: '10%',
     position: 'absolute',
@@ -35,17 +37,18 @@ function Signup() {
                     <input type="text" className='input input-warning bg-transparent' />
                   </div>
                   <div className='my-5'>
-                    <label htmlFor="">Email Address</label>
+                    <label htmlFor="email_address">Email Address</label>
                     <input type="text" className='input input-warning bg-transparent' />
                   </div>
                   <div className='my-5'>
-                    <label htmlFor="">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input type="text" className='input input-warning bg-transparent' />
                   </div>
                   <div className='my-5'>
                     <label htmlFor="">Confirm Password</label>
                     <input type="text" className='input input-warning bg-transparent' />
                   </div>
+                  <GenderCheckbox/>
                   <div className='flex flex-col justify-center my-5'>
                     <button className='btn bg-[#3DA9F1] text-white border-3 border-[#BEE9FF] w-80 my-1'>Signup</button>
                     <button className='btn bg-[#EFA21E] text-white border-3 border-[#FFCD00] w-80 my-1'>Back</button>
