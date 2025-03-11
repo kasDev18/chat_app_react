@@ -5,6 +5,7 @@ import "./App.css";
 
 import Login from "./pages/login/Login.jsx";
 import Signup from "./pages/signup/Signup.jsx";
+import Home from "./pages/home/Home.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,7 +13,11 @@ function App() {
   return (
     <>
       {/* <Login/> */}
-      <Signup/>
+      {/* <Signup/> */}
+
+      <div className="h-screen w-screen flex justify-center items-center">
+        <Home/>
+      </div>
     </>
   );
 }
