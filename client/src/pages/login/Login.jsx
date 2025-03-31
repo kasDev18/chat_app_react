@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -6,7 +7,7 @@ function Login() {
       <div className="triangle absolute"></div>
       <div className="flex flex-1 h-screen w-screen absolute">
         <div className="absolute w-screen flex justify-end p-5">
-          <button className="btn btn-warning mx-2">Signup</button>
+          <Link to="/signup" className="btn btn-warning mx-2">Signup</Link>
           <button className="btn btn-warning btn-circle mx-2">?</button>
         </div>
         <div className="w-[50%] flex items-center justify-center">

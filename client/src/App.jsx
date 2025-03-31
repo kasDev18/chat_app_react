@@ -7,17 +7,19 @@ import "./index.css";
 import Login from "./pages/login/Login.jsx";
 import Signup from "./pages/signup/Signup.jsx";
 import Home from "./pages/home/Home.jsx";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      {/* <Login/> */}
-      {/* <Signup/> */}
-
       <div className="h-screen w-screen flex justify-center items-center">
-        <Home/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
       </div>
     </>
   );
