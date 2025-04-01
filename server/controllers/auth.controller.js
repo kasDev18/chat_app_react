@@ -4,7 +4,10 @@ import generateToken from "../utils/token.js";
 
 export const signup = async (req, res) => {
   try {
-    const { fullName, username, password, confirmPassword, gender } = req.body;
+    const { fullName, emailAddress, password, confirmPassword, gender } = req.body;
+
+    // console.log(confirmPassword);
+    
 
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords doesn't match" });
@@ -16,12 +19,15 @@ export const signup = async (req, res) => {
 
     // https://avatar-placeholder.iran.liara.run
 
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${emailAddress}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${emailAddress}`;
+
+    // console.log();
+    
 
     const newUser = new User({
       fullName,
-      username,
+      emailAddress,
       password: hashedPassword,
       gender,
       profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
@@ -34,7 +40,7 @@ export const signup = async (req, res) => {
       res.status(201).json({
         _id: newUser._id,
         fullName: newUser.fullName,
-        userName: newUser.username,
+        emailAddress: newUser.emailAddress,
         profilePic: newUser.profilePic,
       });
     }else{

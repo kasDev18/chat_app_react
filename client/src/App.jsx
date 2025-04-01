@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import "./index.css";
+import { Toaster } from "react-hot-toast";
 
 import Login from "./pages/login/Login.jsx";
 import Signup from "./pages/signup/Signup.jsx";
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
+        <Toaster/>
       </div>
     </>
   );
