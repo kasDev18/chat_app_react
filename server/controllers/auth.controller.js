@@ -6,7 +6,7 @@ export const signup = async (req, res) => {
   try {
     const { fullName, emailAddress, password, confirmPassword, gender } = req.body;
 
-    // console.log(confirmPassword);
+    // console.log(req.body);
     
 
     if (password !== confirmPassword) {
@@ -19,8 +19,8 @@ export const signup = async (req, res) => {
 
     // https://avatar-placeholder.iran.liara.run
 
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${emailAddress}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${emailAddress}`;
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?emailAddress=${emailAddress}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?emailAddress=${emailAddress}`;
 
     // console.log();
     
@@ -34,6 +34,8 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
+      // console.log(newUser);
+      
       generateToken(newUser._id, res);
       await newUser.save();
 
@@ -54,8 +56,8 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   try{
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const { emailAddress, password } = req.body;
+    const user = await User.findOne({ emailAddress });
     const validPassword = await bcrypt.compare(password, user?.password || "");
 
     if(!user || !validPassword){
@@ -67,7 +69,7 @@ export const login = async (req, res) => {
     res.status(201).json({
       _id: user._id,
       fullName: user.fullName,
-      userName: user.username,
+      emailAddress: user.emailAddress,
       profilePic: user.profilePic,
     });
   }catch(err){
