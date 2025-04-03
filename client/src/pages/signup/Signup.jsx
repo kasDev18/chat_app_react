@@ -144,8 +144,8 @@ function Signup() {
                   selectedGender={inputs.gender}
                 />
                 <div className="flex flex-col justify-center my-5">
-                  <button className="btn bg-[#3DA9F1] text-white border-3 border-[#BEE9FF] w-80 my-1">
-                    Signup
+                  <button className="btn bg-[#3DA9F1] text-white border-3 border-[#BEE9FF] w-80 my-1" disabled={loading}>
+                    {loading ? <span className="loading loading-spinner"></span> : "Sign Up"}
                   </button>
                   {/* <button className="btn bg-[#EFA21E] text-white border-3 border-[#FFCD00] w-80 my-1">
                     <Link to="/login">Back</Link>
