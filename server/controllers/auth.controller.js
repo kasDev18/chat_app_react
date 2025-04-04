@@ -50,13 +50,15 @@ export const signup = async (req, res) => {
     }
   } catch (err) {
     console.log("Error in signup controller", err.message);
-    res.status(401).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 export const login = async (req, res) => {
   try{
     const { emailAddress, password } = req.body;
+    // console.log(emailAddress, password);
+    
     const user = await User.findOne({ emailAddress });
     const validPassword = await bcrypt.compare(password, user?.password || "");
 
@@ -74,7 +76,7 @@ export const login = async (req, res) => {
     });
   }catch(err){
     console.log("Error in login controller", err.message);
-    res.status(401).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -84,6 +86,6 @@ export const logout = (req, res) => {
     res.status(200).json({ message: "Logged out successfully" });
   }catch(err){
     console.log("Error in logout controller", err.message);
-    res.status(401).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
