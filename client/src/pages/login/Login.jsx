@@ -1,13 +1,25 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, loading } = useLogin();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(email, password);
+  };
+
   return (
     <div className="h-screen w-screen bg-[#984FD2] font-display">
       <div className="triangle absolute"></div>
       <div className="flex flex-1 h-screen w-screen absolute">
         <div className="absolute w-screen flex justify-end p-5">
-          <Link to="/signup" className="btn btn-warning mx-2">Signup</Link>
+          <Link to="/signup" className="btn btn-warning mx-2">
+            Signup
+          </Link>
           <button className="btn btn-warning btn-circle mx-2">?</button>
         </div>
         <div className="w-[50%] flex items-center justify-center">
@@ -20,7 +32,10 @@ function Login() {
               height={"100%"}
             />
           </div>
-          <form className="absolute h-[50%] w-[50%] flex flex-col p-5 items-center">
+          <form
+            className="absolute h-[50%] w-[50%] flex flex-col p-5 items-center"
+            onSubmit={handleSubmit}
+          >
             <div className="flex justify-center">
               <img
                 className="chat-bg"
@@ -42,6 +57,8 @@ function Login() {
                   type="text"
                   className="input input-warning text-black w-80 bg-transparent border-none placeholder:text-gray-400"
                   placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <hr className="bolder border-1 border-[#EFA21E]" />
               </div>
@@ -50,12 +67,14 @@ function Login() {
                   type="password"
                   className="input input-warning text-black w-80 bg-transparent border-none placeholder:text-gray-400"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <hr className="bolder border-1 border-[#EFA21E]" />
               </div>
               <div className="my-5">
-                <button className="btn btn-outline btn-warning w-80">
-                  Login
+                <button className="btn btn-outline btn-warning w-80" disabled={loading}>
+                  {loading ? <span className="loading loading-spinner"></span> : "Login"}
                 </button>
               </div>
             </div>
