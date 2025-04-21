@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
 
+const inputStyle = "input input-warning xl:w-120 text-black bg-transparent border-none placeholder:text-gray-400 xl:input-xl md:input-lg input-sm";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +15,6 @@ function Login() {
   };
 
   return (
-    // bg-[#984FD2]
     <div className="h-screen w-screen bg-[#984FD2] font-display">
       <div className="triangle absolute"></div>
       <div className="flex flex-1 h-screen w-screen absolute">
@@ -52,7 +53,7 @@ function Login() {
               <div className="">
                 <input
                   type="text"
-                  className="input input-warning xl:w-120 text-black bg-transparent border-none placeholder:text-gray-400 xl:input-xl md:input-lg input-sm"
+                  className={inputStyle}
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -62,7 +63,7 @@ function Login() {
               <div className="my-5">
                 <input
                   type="password"
-                  className="input input-warning xl:w-120 text-black bg-transparent border-none placeholder:text-gray-400 xl:input-xl md:input-lg input-sm"
+                  className={inputStyle}
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
