@@ -24,7 +24,7 @@ function Login() {
           </Link>
           <button className="btn btn-warning btn-circle mx-2 btn-sm xl:w-[3vw] xl:h-[4vh] xl:text-xl md:btn-md">?</button>
         </div>
-        <div className="xl:w-[60%] md:w-[90%] w-[200%] flex items-center justify-center border rounded-r-full bg-white">
+        <div className="xl:w-[60%] lg:w-[60%] md:w-[90%] w-[200%] flex items-center justify-center border rounded-r-full bg-white">
           <div className="xl:w-[50%] opacity-8 md:rounded-full flex items-center justify-center bg-white relative xl:top-30 md:top-30">
             <img
               className="md:w-[90%] w-70"
@@ -79,7 +79,7 @@ function Login() {
           </form>
         </div>
         <div className="lg:flex hidden items-center justify-center">
-          <img src="/images/cp4.png" className="w-[100%] h-[50%] xl:w-[100%] xl:h-[80%]" alt="login-mobile-phone"/>
+          <img src="/images/cp4.png" className="w-[100%] h-[50%] xl:w-[100%] xl:h-[80%] lg:w-[100%] lg:h-[80%]" alt="login-mobile-phone"/>
         </div>
       </div>
     </div>
