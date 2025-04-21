@@ -44,13 +44,9 @@
 
 .triangle {
   border-style: solid;
-  border-width: 23.2vw 0 25vw 100vw;
+  /* border-width: 23.2vw 0 25vw 100vw; */
   border-color: transparent transparent transparent #fff;
   transform: rotate(0deg);
-}
-
-.chat-bg{
-  opacity: 0.5;
 }
 
 /* dark mode looking scrollbar */
