@@ -25,7 +25,7 @@ function Login() {
           <button className="btn btn-warning btn-circle mx-2 btn-sm xl:w-[3vw] xl:h-[4vh] xl:text-xl md:btn-md">?</button>
         </div>
         <div className="xl:w-[60%] lg:w-[60%] md:w-[90%] w-[200%] flex items-center justify-center border rounded-r-full bg-white">
-          <div className="xl:w-[50%] opacity-8 md:rounded-full flex items-center justify-center bg-white relative xl:top-30 md:top-30">
+          <div className="xl:hidden opacity-8 md:rounded-full flex items-center justify-center bg-white relative xl:top-30 md:top-30">
             <img
               className="md:w-[90%] w-70"
               src="/images/chat2.png"
