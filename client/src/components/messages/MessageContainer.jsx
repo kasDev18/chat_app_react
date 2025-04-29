@@ -1,12 +1,15 @@
 import { useEffect } from "react";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
+import Conversation from "../sidebar/Conversation";
 import { TiMessages } from "react-icons/ti";
 import useConversation from "../../zustand/useConversation";
+import useGetConversations from "../../hooks/useGetConversations";
 import { useAuthContext } from "../../context/AuthContext";
 import { FaUsers } from "react-icons/fa";
 
 const MessageContainer = () => {
+  const { loading, conversations } = useGetConversations();
   const { selectedConversation, setSelectedConversation } = useConversation();
   const { authUser } = useAuthContext();
 
@@ -60,8 +63,20 @@ const MessageContainer = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
+                  <div className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4">
+                    {conversations.map((conversation, idx) => (
+                      <Conversation
+                        key={conversation._id}
+                        conversation={conversation}
+                        lastIdx={idx === conversations.length - 1}
+                      />
+                    ))}
+                    {loading ? (
+                      <span className="loading loading-spinner"></span>
+                    ) : null}
+                  </div>
+                  {/*
                   <ul className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4">
-                    {/* Sidebar content here */}
                     <li>
                       <a>Sidebar Item 1</a>
                     </li>
@@ -69,6 +84,7 @@ const MessageContainer = () => {
                       <a>Sidebar Item 2</a>
                     </li>
                   </ul>
+                  */}
                 </div>
               </div>
             </div>
