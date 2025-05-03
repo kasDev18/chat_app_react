@@ -6,6 +6,8 @@ const useConversation = create((set) => ({
     set({ selectedConversation }),
   messages: [],
   setMessages: (messages) => set({ messages }),
+  search: "",
+  setSearch: (search) => set({ search }),
 }));
 
 export default useConversation;
