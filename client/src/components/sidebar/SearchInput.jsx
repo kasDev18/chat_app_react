@@ -4,8 +4,8 @@ import { IoSearchSharp } from "react-icons/io5";
 import useConversation from "../../zustand/useConversation";
 import useGetConversations from "../../hooks/useGetConversations";
 function SearchInput() {
-  const [search, setSearch] = useState("");
-  const { setSelectedConversation } = useConversation();
+  // const [search, setSearch] = useState("");
+  const { setSelectedConversation, search, setSearch } = useConversation();
   const { conversations } = useGetConversations();
 
   const handleSubmit = (e) => {
