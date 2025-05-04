@@ -7,6 +7,7 @@ import useConversation from "../../zustand/useConversation";
 import useGetConversations from "../../hooks/useGetConversations";
 import { useAuthContext } from "../../context/AuthContext";
 import { FaUsers } from "react-icons/fa";
+import LogoutButton from "../sidebar/LogoutButton";
 
 const MessageContainer = () => {
   const { loading, conversations } = useGetConversations();
@@ -57,13 +58,13 @@ const MessageContainer = () => {
                     <FaUsers className="hover:bg-amber-400"/>
                   </label>
                 </div>
-                <div className="drawer-side z-10 ">
+                <div className="drawer-side z-10">
                   <label
                     htmlFor="my-drawer"
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
-                  <div className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4">
+                  <div className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4  ">
                     {conversations.map((conversation, idx) => (
                       <Conversation
                         key={conversation._id}
@@ -74,6 +75,7 @@ const MessageContainer = () => {
                     {loading ? (
                       <span className="loading loading-spinner"></span>
                     ) : null}
+                    <LogoutButton />
                   </div>
                   {/*
                   <ul className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4">
