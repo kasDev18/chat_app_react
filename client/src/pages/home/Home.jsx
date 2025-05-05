@@ -6,7 +6,7 @@ import "../../index.css"
 
 function Home() {
   return (
-    <div className='flex h-screen w-screen bg-purple-800 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 p-5'>
+    <div className='flex h-screen w-screen bg-purple-800 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 md:p-5'>
       <Sidebar />
       <MessageContainer/>
       <div className='lg:grid w-1/2 p-5 rounded-2xl bg-purple-950 hidden'>
