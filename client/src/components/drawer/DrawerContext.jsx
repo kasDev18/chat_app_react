@@ -1,4 +1,6 @@
-export default function DrawerContext({ icon, children, style="" }) {
+import SearchInput from "../sidebar/SearchInput";
+
+export default function DrawerContext({ icon, children, style = "" }) {
   return (
     <div className={`drawer sm:flex md:hidden justify-end w-5 ${style}`}>
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -16,7 +18,9 @@ export default function DrawerContext({ icon, children, style="" }) {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4  ">
+        <div className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4">
+          <SearchInput />
+          <div className="divider px-3"></div>
           {children}
         </div>
       </div>
