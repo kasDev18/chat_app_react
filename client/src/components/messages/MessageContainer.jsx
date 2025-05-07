@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
+import SearchInput from "../sidebar/SearchInput";
 import Conversation from "../sidebar/Conversation";
 import { TiMessages } from "react-icons/ti";
 import useConversation from "../../zustand/useConversation";
@@ -23,37 +24,6 @@ const MessageContainer = () => {
   const NoChatSelected = () => {
     return (
       <div className="flex items-center justify-center md:w-full md:h-full w-screen md:mx-3 md:rounded-2xl bg-purple-950">
-        {/* <div className="drawer sm:flex md:hidden justify-end w-5 absolute top-3 left-3">
-          <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content">
-            <button className="btn btn-soft btn-warning">
-              <label htmlFor="my-drawer" className="drawer-button">
-                <MdNavigateNext />
-              </label>
-            </button>
-          </div>
-          <div className="drawer-side z-10">
-            <label
-              htmlFor="my-drawer"
-              aria-label="close sidebar"
-              className="drawer-overlay"
-            ></label>
-            <div className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4  ">
-              {conversations.map((conversation, idx) => (
-                <Conversation
-                  key={conversation._id}
-                  conversation={conversation}
-                  lastIdx={idx === conversations.length - 1}
-                />
-              ))}
-              {loading ? (
-                <span className="loading loading-spinner"></span>
-              ) : null}
-              <LogoutButton />
-            </div>
-          </div>
-        </div> */}
-
         <DrawerContext
           icon={
             <button className="btn btn-soft btn-warning">
