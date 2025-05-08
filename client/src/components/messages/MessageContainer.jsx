@@ -24,26 +24,6 @@ const MessageContainer = () => {
   const NoChatSelected = () => {
     return (
       <div className="flex items-center justify-center md:w-full md:h-full w-screen md:mx-3 md:rounded-2xl bg-purple-950">
-        <DrawerContext
-          icon={
-            <button className="btn btn-soft btn-warning">
-              <label htmlFor="my-drawer" className="drawer-button">
-                <MdNavigateNext />
-              </label>
-            </button>
-          }
-          style="absolute top-3 left-3"
-        >
-          {conversations.map((conversation, idx) => (
-            <Conversation
-              key={conversation._id}
-              conversation={conversation}
-              lastIdx={idx === conversations.length - 1}
-            />
-          ))}
-          {loading ? <span className="loading loading-spinner"></span> : null}
-          <LogoutButton />
-        </DrawerContext>
         <div className="px-4 text-center sm:text-lg md:text-xl text-gray-200 font-semibold flex flex-col items-center gap-2">
           <p>Welcome 👋 {authUser.fullName}</p>
           <p>Select a chat to start a conversation</p>
@@ -56,14 +36,40 @@ const MessageContainer = () => {
   return (
     <>
       {!selectedConversation ? (
-        <NoChatSelected />
+        <>
+          <DrawerContext
+            icon={
+              <button className="btn btn-soft btn-warning">
+                <label htmlFor="my-drawer" className="drawer-button">
+                  <MdNavigateNext />
+                </label>
+              </button>
+            }
+            style="absolute top-3 left-3"
+          >
+            {conversations.map((conversation, idx) => (
+              <Conversation
+                key={conversation._id}
+                conversation={conversation}
+                lastIdx={idx === conversations.length - 1}
+              />
+            ))}
+            {loading ? <span className="loading loading-spinner"></span> : null}
+            <LogoutButton />
+          </DrawerContext>
+          <NoChatSelected />
+        </>
       ) : (
         <div className="w-full flex flex-col md:mx-3 md:rounded-2xl bg-purple-950 md:p-5">
           <>
             {/* Header */}
             <div className="flex items-center justify-between bg-purple-800 border-b-4 border-b-[#FFD966] px-4 py-2 shadow-2xl">
               <div className="flex items-center gap-2">
-                <img src="" alt="receiver image" className="w-10 h-10 rounded-full bg-white" />
+                <img
+                  src=""
+                  alt="receiver image"
+                  className="w-10 h-10 rounded-full bg-white"
+                />
                 <span className="font-bold text-lg text-gray-100">
                   {selectedConversation.fullName}
                 </span>
@@ -71,7 +77,7 @@ const MessageContainer = () => {
               <DrawerContext
                 icon={
                   <label htmlFor="my-drawer" className="drawer-button">
-                    <FaUsers className="text-2xl"/>
+                    <FaUsers className="text-2xl" />
                   </label>
                 }
               >
