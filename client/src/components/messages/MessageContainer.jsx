@@ -14,7 +14,8 @@ import DrawerContext from "../drawer/DrawerContext";
 
 const MessageContainer = () => {
   const { loading, conversations } = useGetConversations();
-  const { selectedConversation, setSelectedConversation } = useConversation();
+  const { selectedConversation, setSelectedConversation, search } =
+    useConversation();
   const { authUser } = useAuthContext();
 
   useEffect(() => {
@@ -33,6 +34,34 @@ const MessageContainer = () => {
     );
   };
 
+  const sidebar = () => {
+    return (
+      <>
+        {search
+          ? conversations
+              .filter((data) =>
+                data.fullName.toLowerCase().includes(search.toLowerCase())
+              )
+              .map((conversation, idx) => (
+                <Conversation
+                  key={conversation._id}
+                  conversation={conversation}
+                  lastIdx={idx === conversations.length - 1}
+                />
+              ))
+          : conversations.map((conversation, idx) => (
+              <Conversation
+                key={conversation._id}
+                conversation={conversation}
+                lastIdx={idx === conversations.length - 1}
+              />
+            ))}
+        {loading ? <span className="loading loading-spinner"></span> : null}
+        <LogoutButton />
+      </>
+    );
+  };
+
   return (
     <>
       {!selectedConversation ? (
@@ -47,15 +76,7 @@ const MessageContainer = () => {
             }
             style="absolute top-3 left-3"
           >
-            {conversations.map((conversation, idx) => (
-              <Conversation
-                key={conversation._id}
-                conversation={conversation}
-                lastIdx={idx === conversations.length - 1}
-              />
-            ))}
-            {loading ? <span className="loading loading-spinner"></span> : null}
-            <LogoutButton />
+            {sidebar()}
           </DrawerContext>
           <NoChatSelected />
         </>
@@ -81,17 +102,7 @@ const MessageContainer = () => {
                   </label>
                 }
               >
-                {conversations.map((conversation, idx) => (
-                  <Conversation
-                    key={conversation._id}
-                    conversation={conversation}
-                    lastIdx={idx === conversations.length - 1}
-                  />
-                ))}
-                {loading ? (
-                  <span className="loading loading-spinner"></span>
-                ) : null}
-                <LogoutButton />
+                {sidebar()}
               </DrawerContext>
             </div>
 
