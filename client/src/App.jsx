@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import "./App.css";
-import "./index.css";
+// import "./App.css";
+// import "./index.css";
 import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
 
