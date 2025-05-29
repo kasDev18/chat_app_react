@@ -19,14 +19,18 @@ function Conversation({ conversation, lastIdx }) {
         onClick={() => setSelectedConversation(conversation)}
       >
         <div className={`avatar ${isOnline ? "avatar-online" : ""}`}>
-					<div className='2xl:w-15 md:w-12 w-8 rounded-full'>
+					<div className='md:w-12 w-8 rounded-full'>
 						<img src={conversation.profilePic} alt='user avatar' />
 					</div>
 				</div>
 
         <div className="flex flex-col flex-1">
-          <div className="flex gap-3 justify-between">
-            <p className="font-bold text-gray-200 text-xs 2xl:text-2xl">{conversation.fullName}</p>
+          <div className="flex flex-col justify-between">
+            <p className="font-bold text-gray-200 text-xs 2xl:text-lg">{conversation.fullName}</p>
+            <div className="md:flex justify-between hidden">
+              <p className="text-gray-400 text-xs 2xl:text-md italic">Hey bro! What you are doing...</p>
+              <p className="text-gray-400 text-xs 2xl:text-md italic">10:00 am</p>
+            </div>
             {/* <span className="text-xl">🥕</span> */}
           </div>
         </div>

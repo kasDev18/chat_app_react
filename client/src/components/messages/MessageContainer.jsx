@@ -24,7 +24,7 @@ const MessageContainer = () => {
 
   const NoChatSelected = () => {
     return (
-      <div className="flex items-center justify-center md:w-full md:h-full w-screen md:mx-3 md:rounded-2xl bg-purple-950">
+      <div className="flex items-center justify-center md:w-full md:h-full w-screen md:mx-3 md:rounded-2xl ">
         <div className="px-4 text-center sm:text-lg md:text-xl text-gray-200 font-semibold flex flex-col items-center gap-2">
           <p>Welcome 👋 {authUser.fullName}</p>
           <p>Select a chat to start a conversation</p>
