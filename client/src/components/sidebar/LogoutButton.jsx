@@ -12,7 +12,7 @@ function LogoutButton() {
         //   onClick={logout}
         // />
         <button
-          className="btn btn-active btn-secondary w-full"
+          className="btn btn-active bg-[#984FD2] w-full"
           onClick={logout}
         >
           Logout</button>

@@ -81,14 +81,14 @@ const MessageContainer = () => {
           <NoChatSelected />
         </>
       ) : (
-        <div className="w-full flex flex-col md:mx-3 md:rounded-2xl bg-purple-950 md:p-5">
+        <div className="w-full flex flex-col md:mx-3 md:rounded-2xl bg-gray-800">
           <>
             {/* Header */}
             <div className="flex items-center justify-between bg-purple-800 border-b-4 border-b-[#FFD966] px-4 py-2 shadow-2xl">
               <div className="flex items-center gap-2">
                 <img
                   src=""
-                  alt="receiver image"
+                  alt="receiver_image"
                   className="w-10 h-10 rounded-full bg-white"
                 />
                 <span className="font-bold text-lg text-gray-100">
