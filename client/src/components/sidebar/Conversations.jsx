@@ -8,7 +8,7 @@ function Conversations() {
   const [allReceivers, setAllReceivers] = useState([]);
   const { search, setReceiver } = useConversation();
   const { loading, conversations } = useGetConversations();
-  const { userLastChat } = useGetLastChat();
+  const { userLastChat, fetching } = useGetLastChat();
   
   const getReceiver = async () => {
     conversations.map((conversation) => {
@@ -43,6 +43,7 @@ function Conversations() {
               conversation={conversation}
               lastIdx={idx === conversations.length - 1}
               userLastChat={userLastChat[idx]}
+              fetching={fetching}
             />
             ))}
       {loading ? <span className="loading loading-spinner"></span> : null}
