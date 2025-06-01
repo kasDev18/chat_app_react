@@ -10,12 +10,12 @@ import useConversation from "../zustand/useConversation";
  * @author Kas
  */
 function useGetLastChat() {
-  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(false);
   const { userLastChat, setUserLastChat, receiver } = useConversation();
 
   useEffect(() => {
     const getLastChat = async () => {
-      setLoading(true);
+      setFetching(true);
       try {
         let messages = [];
 
@@ -35,7 +35,7 @@ function useGetLastChat() {
         toast.error(error.message);
       } finally {
         setTimeout(() => {
-          setLoading(false);
+          setFetching(false);
         }, 1000);
       }
     };
@@ -43,7 +43,7 @@ function useGetLastChat() {
     getLastChat();
   }, [receiver, setUserLastChat]);
 
-  return { loading, userLastChat };
+  return { fetching, userLastChat };
 }
 
 export default useGetLastChat;

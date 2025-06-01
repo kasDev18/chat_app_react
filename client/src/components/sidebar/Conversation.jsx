@@ -2,8 +2,8 @@ import useConversation from "../../zustand/useConversation";
 import { useSocketContext } from "../../context/SocketContext";
 import { extractTime } from "../../utils/extractTime";
 
-function Conversation({ conversation, lastIdx, userLastChat }) {
-  const { selectedConversation, setSelectedConversation } = useConversation();
+function Conversation({ conversation, lastIdx, userLastChat, fetching }) {
+  const { selectedConversation, setSelectedConversation, loading } = useConversation();
   const isSelected = selectedConversation?._id === conversation._id;
 
   const { onlineUsers } = useSocketContext(); /* Get online users */
@@ -37,16 +37,16 @@ function Conversation({ conversation, lastIdx, userLastChat }) {
               {userLastChat?.message ? (
                 <>
                   <p className="text-gray-400 text-xs 2xl:text-md italic">
-                    {userLastChat.message}
+                    {fetching ? "..." : userLastChat.message}
                   </p>
                   <p className="text-gray-400 text-xs 2xl:text-md italic">
-                    {formattedDateTime}
+                    {fetching ? "" : formattedDateTime}
                   </p>
                 </>
               ) : (
                 <>
                   <p className="text-gray-400 text-xs 2xl:text-md italic">
-                    Send a message to start a conversation
+                    {fetching ? "..." : "Send a message to start a conversation"}
                   </p>
                 </>
               )}
