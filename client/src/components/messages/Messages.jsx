@@ -29,6 +29,7 @@ function Messages() {
         ))}
       {!loading && messages.length === 0 && (
         <div className="text-center opacity-50 text-white">
+          <br />
           Send a message to start a conversation
         </div>
       )}

@@ -12,6 +12,8 @@ const useConversation = create((set) => ({
   setReceiver: (receiver) => set({ receiver }),
   userLastChat: [],
   setUserLastChat: (userLastChat) => set({ userLastChat }),
+  arrayLastChat: [],
+  setArrayLastChat: (arrayLastChat) => set({ arrayLastChat }),
 }));
 
 export default useConversation;

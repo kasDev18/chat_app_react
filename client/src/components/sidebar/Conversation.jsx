@@ -3,7 +3,7 @@ import { useSocketContext } from "../../context/SocketContext";
 import { extractTime } from "../../utils/extractTime";
 
 function Conversation({ conversation, lastIdx, userLastChat, fetching }) {
-  const { selectedConversation, setSelectedConversation, loading } = useConversation();
+  const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id === conversation._id;
 
   const { onlineUsers } = useSocketContext(); /* Get online users */
@@ -13,6 +13,7 @@ function Conversation({ conversation, lastIdx, userLastChat, fetching }) {
   const formattedDateTime = extractTime(
     userLastChat?.updatedAt || userLastChat?.createdAt
   );
+  
 
   return (
     <>
@@ -34,10 +35,10 @@ function Conversation({ conversation, lastIdx, userLastChat, fetching }) {
               {conversation.fullName}
             </p>
             <div className="md:flex justify-between hidden">
-              {userLastChat?.message ? (
+              {userLastChat?.last_chat ? (
                 <>
                   <p className="text-gray-400 text-xs 2xl:text-md italic">
-                    {fetching ? "..." : userLastChat.message}
+                    {fetching ? "..." : userLastChat.last_chat}
                   </p>
                   <p className="text-gray-400 text-xs 2xl:text-md italic">
                     {fetching ? "" : formattedDateTime}
