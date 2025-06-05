@@ -25,7 +25,7 @@ app.use("/api/", userRoutes);
 //     res.send("Hello from the server!");
 // });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   connectToMongoDB();
   console.log(`Server running on port ${PORT}`);
 });
