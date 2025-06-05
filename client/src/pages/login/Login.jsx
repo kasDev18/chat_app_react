@@ -17,7 +17,7 @@ function Login() {
     const success = await login(email, password);    
     if (success) {
       useAuthUser(success);
-      navigate("/");
+      navigate("http://54.66.124.33:3000/");
     }
   };
 
