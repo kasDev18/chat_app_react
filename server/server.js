@@ -11,7 +11,7 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server, io } from "./socket/socket.js";
 // import protectRoute from "./middleware/protectRoute.js";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 dotenv.config(".env");
 
