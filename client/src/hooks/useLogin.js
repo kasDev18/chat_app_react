@@ -17,6 +17,7 @@ const useLogin = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer AJ2xU2Uxp1LXo3sK0IKhKf3D3M5L/oCouHqJHRj6oi4=`,
         },
         body: JSON.stringify({
           emailAddress,
