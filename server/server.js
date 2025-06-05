@@ -17,7 +17,7 @@ dotenv.config(".env");
 
 app.use(
   cors({
-    origin: "http://54.66.124.33:3000",
+    origin: "http://localhost:3000",
     credentials: true,
     methods: ["GET", "POST"],
   })
