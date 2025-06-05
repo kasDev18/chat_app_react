@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
-import { useAuthContext } from "../../context/AuthContext";
 
 const inputStyle = "input input-warning xl:w-120 text-black bg-transparent border-none placeholder:text-gray-400 xl:input-xl md:input-lg input-sm";
 
@@ -9,16 +8,10 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, loading } = useLogin();
-  const { useAuthUser } = useAuthContext();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await login(email, password);    
-    if (success) {
-      useAuthUser(success);
-      navigate("http://54.66.124.33:3000/");
-    }
+    await login(email, password);    
   };
 
   return (
