@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
+import { useAuthContext } from "../../context/AuthContext";
 
 const inputStyle = "input input-warning xl:w-120 text-black bg-transparent border-none placeholder:text-gray-400 xl:input-xl md:input-lg input-sm";
 
@@ -8,10 +9,14 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, loading } = useLogin();
+  const { useAuthUser } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(email, password);    
+    const success = await login(email, password);    
+    if (success) {
+      useAuthUser(success);
+    }
   };
 
   return (
