@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import authRoutes from "./routes/auth.js";
 import messageRoutes from "./routes/message.routes.js";
@@ -13,6 +14,14 @@ import { app, server, io } from "./socket/socket.js";
 const PORT = process.env.PORT || 5000;
 
 dotenv.config(".env");
+
+app.use(
+  cors({
+    origin: "http://54.66.124.33:3000",
+    credentials: true,
+    methods: ["GET", "POST"],
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());

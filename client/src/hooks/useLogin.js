@@ -13,10 +13,12 @@ const useLogin = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch("http://54.66.124.33:5000/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
         },
         body: JSON.stringify({
           emailAddress,
