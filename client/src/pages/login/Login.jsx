@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
 import { useAuthContext } from "../../context/AuthContext";
 
@@ -10,12 +10,14 @@ function Login() {
   const [password, setPassword] = useState("");
   const { login, loading } = useLogin();
   const { useAuthUser } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await login(email, password);    
     if (success) {
       useAuthUser(success);
+      navigate("/");
     }
   };
 
