@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import path from "path";
 
 import authRoutes from "./routes/auth.js";
 import messageRoutes from "./routes/message.routes.js";
@@ -23,14 +22,6 @@ app.use(
     methods: ["GET", "POST"],
   })
 );
-
-// Serve static files from Vite build
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// Catch-all fallback (SPA routes)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
 
 app.use(express.json());
 app.use(cookieParser());
