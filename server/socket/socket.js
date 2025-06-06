@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://54.66.124.33:3000",
+    origin: `${process.env.CLIENT_URL}`,
     credentials: true,
     methods: ["GET", "POST"],
   },

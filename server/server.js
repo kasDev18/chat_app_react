@@ -9,15 +9,15 @@ import userRoutes from "./routes/user.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server, io } from "./socket/socket.js";
-// import protectRoute from "./middleware/protectRoute.js";
-
-const PORT = process.env.PORT || 5001;
 
 dotenv.config(".env");
 
+const { PORT, CLIENT_URL } = process.env;
+const SERVER_PORT = PORT || 5001;
+
 app.use(
   cors({
-    origin: "http://54.66.124.33:3000",
+    origin: `${CLIENT_URL}`,
     credentials: true,
     methods: ["GET", "POST"],
   })
@@ -34,7 +34,7 @@ app.use("/api/", userRoutes);
 //     res.send("Hello from the server!");
 // });
 
-server.listen(PORT, '0.0.0.0', () => {
+server.listen(SERVER_PORT, '0.0.0.0', () => {
   connectToMongoDB();
   console.log(`Server running on port ${PORT}`);
 });
