@@ -42,7 +42,7 @@ jobs:
         key: ${{ secrets.CHAT_APP_KEY }}
         script: |
           cd ~/chat_app_react
-          git pull origin main
+          git pull origin master
 
           cd client
           npm install
