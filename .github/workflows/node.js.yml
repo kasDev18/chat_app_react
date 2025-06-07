@@ -18,37 +18,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-
-    - name: Install frontend dependencies
-      working-directory: client
-      run: npm install
-
-    - name: Build frontend
-      working-directory: client
-      run: npm run build
-
-    - name: Deploy via SSH
-      uses: appleboy/ssh-action@master
+    - name: SSH and Deploy
+      uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.CHAT_APP_HOST }}
         username: ubuntu
         key: ${{ secrets.CHAT_APP_KEY }}
         script: |
-          cd ~/chat_app_react
-          git pull origin master
-
-          cd client
-          npm install
-          npm run build
-          cp -r dist/* ../server/public/
-
-          cd ../server
-          npm install
-          pm2 restart chat-app-be || pm2 start server.js --name chat-app-be
+          /home/ubuntu/deploy.sh
