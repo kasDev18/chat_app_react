@@ -29,11 +29,4 @@ jobs:
         key: ${{ secrets.CHAT_APP_KEY }}
         port: 22                              # optional (default: 22)
         script: |
-          cd ~/chat_app_react
-          git pull origin master
-          cd client
-          npm install
-          npm run build
-          cd ../server
-          npm install
-          pm2 restart chat-app-be
+          /home/ubuntu/deploy.sh
