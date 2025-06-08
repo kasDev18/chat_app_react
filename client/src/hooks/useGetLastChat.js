@@ -25,6 +25,9 @@ function useGetLastChat() {
           const res = await fetch(`${latestMessage}/${receiver[i]}`,{
             method: "GET",
             credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
           });
           const data = await res.json();
 
