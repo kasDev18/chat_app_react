@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { users } from "../utils/api/routes";
 
 function useGetConversations() {
   const [loading, setLoading] = useState(false);
@@ -9,7 +10,10 @@ function useGetConversations() {
     const getConversations = async () => {
       setLoading(true);
       try {
-        const res = await fetch("/api/users");
+        const res = await fetch(`${users}`,{
+          method: "GET",
+          credentials: "include",
+        });
         const data = await res.json();
         if (data.error) throw new Error(data.error);
         setConversations(data);
