@@ -14,6 +14,9 @@ function useGetMessage() {
         const res = await fetch(`${allMessages}/${selectedConversation._id}`, {
           method: "GET",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          }
         });
         const data = await res.json();
         if (data.error) throw new Error(data.error);
