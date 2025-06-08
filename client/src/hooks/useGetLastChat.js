@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useConversation from "../zustand/useConversation";
+import { messages as latestMessage } from "../utils/api/routes";
 
 /**
  * DOCU: This hook is used to get the last chat from the conversaation of sender and receiver <br>
@@ -21,7 +22,10 @@ function useGetLastChat() {
         let arrMessages = [];
 
         for(let i = 0; i < receiver.length; i++) {
-          const res = await fetch(`/api/messages/${receiver[i]}`);
+          const res = await fetch(`${latestMessage}/${receiver[i]}`,{
+            method: "GET",
+            credentials: "include",
+          });
           const data = await res.json();
 
           if (data.error) throw new Error(data.error); /* Handle Error */

@@ -16,6 +16,7 @@ const useLogin = () => {
     try {
       const res = await fetch(loginRoute, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -27,6 +28,7 @@ const useLogin = () => {
 
       const data = await res.json();
       if (data.error) throw new Error(data.error);
+      
 
       localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
