@@ -8,6 +8,7 @@ function Conversations() {
   const [allReceivers, setAllReceivers] = useState([]);
   const { search, setReceiver } = useConversation();
   const { loading, conversations } = useGetConversations();
+  const [conversation, setConversation] = useState(null);
   const { userLastChat, fetching, arrayLastChat } = useGetLastChat();
 
   const getReceiver = async () => {
@@ -31,9 +32,10 @@ function Conversations() {
   };
 
   useEffect(() => {
+    setConversation(conversations);
     getReceiver();
     setReceiver(allReceivers);
-  }, [conversations, search, userLastChat]);
+  }, [conversation, conversations, search]);
 
   return (
     <div className="py-2 flex flex-col overflow-auto">
