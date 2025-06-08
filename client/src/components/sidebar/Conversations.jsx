@@ -33,7 +33,7 @@ function Conversations() {
   useEffect(() => {
     getReceiver();
     setReceiver(allReceivers);
-  }, [conversations, search, allReceivers]);
+  }, [conversations, search, userLastChat]);
 
   return (
     <div className="py-2 flex flex-col overflow-auto">
