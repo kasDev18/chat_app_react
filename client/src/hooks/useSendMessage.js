@@ -14,6 +14,7 @@ function useSendMessage() {
         `${send_message}/send/${selectedConversation._id}`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
