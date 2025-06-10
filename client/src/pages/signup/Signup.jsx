@@ -76,7 +76,7 @@ function Signup() {
           width={"10%"}
           height={"10%"}
           className={
-            "opacity-20 absolute top-5/6 left-50 transform -translate-x-1/2 -translate-y-1/2"
+            "opacity-20 absolute top-5/6 left-50 transform-translate-x-1/2 -translate-y-1/2"
           }
         />
       </div>
@@ -84,13 +84,13 @@ function Signup() {
         <div className="bg-white border-8 border-amber-300 px-5 pt-5">
           <img
             src="/images/chatapp_logo.jpg"
-            className="mx-auto w-[35%] h-[35%] 2xl:w-[30%] 2xl:h-[30%] lg:w-[20%] lg:h-[20%]"
+            className="mx-auto w-[35%] h-[35%] lg:w-[20%] lg:h-[20%]"
             alt="signup-chatapp-logo"
           />
           <div className="lg:m-10 mt-5">
-            <div className="text-[#764C9E] lg:grid flex flex-col items-center sm:justify-center">
-              <h1 className="2xl:text-5xl md:text-xl text-md font-bold">Get Started Now</h1>
-              <h2 className="2xl:text-4xl lg:text-xl md:text-md text-[11px]">Enter your Credentials to Create your account</h2>
+            <div className="text-[#764C9E] lg:grid flex flex-col items-center sm:justify-center lg:justify-start">
+              <h1 className="md:text-xl text-md font-bold">Get Started Now</h1>
+              <h2 className="lg:text-xl md:text-md text-[11px]">Enter your Credentials to Create your account</h2>
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
               <div className="lg:my-10 my-5 text-[#EFA21E]">
@@ -98,7 +98,7 @@ function Signup() {
                   <label className="lg:text-xl text-xs" htmlFor="name">Name</label>
                   <input
                     type="text"
-                    className="input input-warning bg-transparent input-xs 2xl:input-xl 2xl:w-180 lg:input-sm lg:w-100 w-60"
+                    className="input input-warning bg-transparent input-xs lg:input-sm lg:w-100 w-60"
                     value={inputs.fullName}
                     onChange={(e) =>
                       setInputs({ ...inputs, fullName: e.target.value })
@@ -109,7 +109,7 @@ function Signup() {
                   <label className="lg:text-xl text-xs" htmlFor="email_address">Email Address</label>
                   <input
                     type="email"
-                    className="input input-warning bg-transparent input-xs 2xl:input-xl 2xl:w-180 lg:input-sm w-full lg:w-100"
+                    className="input input-warning bg-transparent input-xs lg:input-sm w-full lg:w-100"
                     value={inputs.emailAddress}
                     onChange={(e) =>
                       setInputs({ ...inputs, emailAddress: e.target.value })
@@ -120,7 +120,7 @@ function Signup() {
                   <label className="lg:text-xl text-xs" htmlFor="password">Password</label>
                   <input
                     type="password"
-                    className="input input-warning bg-transparent input-xs 2xl:input-xl 2xl:w-180 lg:input-sm w-full lg:w-100"
+                    className="input input-warning bg-transparent input-xs lg:input-sm w-full lg:w-100"
                     value={inputs.password}
                     onChange={(e) =>
                       setInputs({ ...inputs, password: e.target.value })
@@ -131,7 +131,7 @@ function Signup() {
                   <label className="lg:text-xl text-xs" htmlFor="confirm_password">Confirm Password</label>
                   <input
                     type="password"
-                    className="input input-warning bg-transparent input-xs 2xl:input-xl 2xl:w-180 lg:input-sm w-full lg:w-100"
+                    className="input input-warning bg-transparent input-xs lg:input-sm w-full lg:w-100"
                     value={inputs.confirmPassword}
                     onChange={(e) =>
                       setInputs({ ...inputs, confirmPassword: e.target.value })
@@ -142,15 +142,12 @@ function Signup() {
                   onCheckboxChange={handleCheckboxChange}
                   selectedGender={inputs.gender}
                 />
-                <div className="flex flex-col justify-center md:my-5 mt-5">
-                  <button className="btn bg-[#3DA9F1] text-white border-3 border-[#BEE9FF] my-1 btn-sm 2xl:btn-xl" disabled={loading}>
+                <div className="flex flex-col justify-center md:mt-5">
+                  <button className="btn bg-[#3DA9F1] text-white border-3 border-[#BEE9FF] my-1 btn-sm 2xl:btn-md" disabled={loading}>
                     {loading ? <span className="loading loading-spinner"></span> : "Sign Up"}
                   </button>
-                  {/* <button className="btn bg-[#EFA21E] text-white border-3 border-[#FFCD00] w-80 my-1">
-                    <Link to="/login">Back</Link>
-                  </button> */}
                   <Link to="/login">
-                    <button className="btn bg-[#EFA21E] text-white border-3 border-[#FFCD00] my-1 btn-sm w-full 2xl:btn-xl">
+                    <button className="btn bg-[#EFA21E] text-white border-3 border-[#FFCD00] my-1 btn-sm w-full 2xl:btn-md">
                       Back
                     </button>
                   </Link>
