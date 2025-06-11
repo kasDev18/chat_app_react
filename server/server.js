@@ -30,10 +30,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/", userRoutes);
 
-// app.get("/", (req, res) => {
-//     res.send("Hello from the server!");
-// });
-
 server.listen(SERVER_PORT, '0.0.0.0', () => {
   connectToMongoDB();
   console.log(`Server running on port ${SERVER_PORT}`);
