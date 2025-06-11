@@ -42,14 +42,23 @@ function Signup() {
           src="/images/chat2.png"
           alt=""
           className={
-            "opacity-20 absolute top-1/4 left-50 transform -translate-x-1/2 -translate-y-1/2"
+            "opacity-20 absolute top-1/4 left-50 transform-translate-x-1/2 -translate-y-1/2"
           }
         />
-        <img
+        {/* <img
           src="/images/chat2.png"
           alt=""
           className={
-            "opacity-20 absolute top-2/3 left-3/5 transform -translate-x-1/2 -translate-y-1/2"
+            "opacity-20 absolute top-1/2 left-1/4 bg-amber-300"
+          }
+        /> */}
+        <img
+          src="/images/chat2.png"
+          width={"10%"}
+          height={"10%"}
+          alt=""
+          className={
+            "opacity-20 absolute top-4/8 left-5/6 transform-translate-x-1/2 -translate-y-1/2"
           }
         />
         <img
@@ -58,16 +67,7 @@ function Signup() {
           height={"10%"}
           alt=""
           className={
-            "opacity-20 absolute top-4/8 left-5/6 transform -translate-x-1/2 -translate-y-1/2"
-          }
-        />
-        <img
-          src="/images/chat2.png"
-          width={"10%"}
-          height={"10%"}
-          alt=""
-          className={
-            "opacity-20 absolute top-1/10 left-7/8 transform -translate-x-1/2 -translate-y-1/2"
+            "opacity-20 absolute top-1/10 left-7/8 transform-translate-x-1/2 -translate-y-1/2"
           }
         />
         <img
