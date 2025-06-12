@@ -9,7 +9,7 @@ function Home() {
     <div className="flex h-screen w-screen   md:p-5">
       <Sidebar />
       <MessageContainer />
-      <div className="lg:grid w-1/4 p-5  hidden bg-gray-800">
+      <aside className="lg:grid w-1/4 p-5  hidden bg-gray-800">
         <div className="h-full flex flex-col items-center">
           <div className="pt-5">
             <img
@@ -30,7 +30,7 @@ function Home() {
             <button className="btn btn-active bg-[#984FD2]">Edit</button>
           </div>
         </div>
-      </div>
+      </aside>
     </div>
   );
 }
