@@ -18,12 +18,12 @@ function Login() {
     <div className="h-screen w-screen bg-[#984FD2] font-display">
       <div className="triangle absolute"></div>
       <div className="flex flex-1 h-screen w-screen absolute">
-        <div className="absolute w-screen flex justify-end p-5">
-          <Link to="/signup" className="btn btn-warning btn-sm xl:btn-wide xl:h-[4vh] md:btn-md xl:text-xl mx-2">
+        <header className="absolute w-screen flex justify-end p-5">
+          <Link to="/signup" className="btn btn-warning btn-sm xl:btn-wide xl:h-[4vh] md:btn-md xl:text-xl mx-2" id="signup_btn">
             Signup
           </Link>
-          <button className="btn btn-warning btn-circle mx-2 btn-sm xl:w-[3vw] xl:h-[4vh] xl:text-xl md:btn-md">?</button>
-        </div>
+          <button className="btn btn-warning btn-circle mx-2 btn-sm xl:w-[3vw] xl:h-[4vh] xl:text-xl md:btn-md" id="help_btn">?</button>
+        </header>
         <div className="xl:w-[60%] lg:w-[60%] md:w-[90%] w-[200%] flex items-center justify-center border rounded-r-full bg-white">
           <div className="xl:hidden opacity-8 md:rounded-full flex items-center justify-center bg-white relative xl:top-30 md:top-30">
             <img
