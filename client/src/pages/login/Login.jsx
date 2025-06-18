@@ -28,6 +28,7 @@ function Login() {
             Signup
           </Link>
           <button
+            type="button"
             className="btn btn-warning btn-circle mx-2 btn-sm xl:w-[3vw] xl:h-[4vh] xl:text-xl md:btn-md"
             id="help-btn"
           >
@@ -42,28 +43,28 @@ function Login() {
               alt="login-chat-bg"
             />
           </div>
-          <section className="flex justify-center">
-            <img
-              id="login-logo"
-              className="w-1/2 xl:w-[15vw]"
-              src="/images/chatapp_logo.jpg"
-              alt="login-chatapp-logo"
-            />
-          </section>
-          <section className="flex flex-col items-center justify-center my-5">
-            <h1
-              id="login-title"
-              className="font-bold text-[#764C9E] xl:text-3xl sm:text-sm md:text-xl mb-2"
-            >
-              Connect with your favorite people
-            </h1>
-            <hr className="bolder border-2 border-[#764C9E] xl:w-130 md:w-90 w-70" />
-          </section>
           <form
             className="absolute h-[50%] w-[50%] flex flex-col p-5 items-center login-form"
             onSubmit={handleSubmit}
           >
-            <div className="xl:w-120 md:w-80 w-60">
+            <section className="flex justify-center">
+              <img
+                id="login-logo"
+                className="w-1/2 xl:w-[15vw]"
+                src="/images/chatapp_logo.jpg"
+                alt="login-chatapp-logo"
+              />
+            </section>
+            <section className="flex flex-col items-center justify-center my-5">
+              <h1
+                id="login-title"
+                className="font-bold text-[#764C9E] xl:text-3xl sm:text-sm md:text-xl mb-2"
+              >
+                Connect with your favorite people
+              </h1>
+              <hr className="bolder border-2 border-[#764C9E] xl:w-130 md:w-90 w-70" />
+            </section>
+            <section className="xl:w-120 md:w-80 w-60">
               <div className="login-form-content">
                 <input
                   id="login-email-input"
@@ -102,7 +103,7 @@ function Login() {
                   )}
                 </button>
               </div>
-            </div>
+            </section>
           </form>
         </div>
         <div className="lg:flex hidden items-center justify-center login-phone-container">
