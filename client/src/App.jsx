@@ -7,6 +7,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login.jsx";
 import Signup from "./pages/signup/Signup.jsx";
 import Home from "./pages/home/Home.jsx";
+import UserEdit from "./pages/home/UserEdit.jsx";
 import { AuthContext } from "./context/AuthContext.jsx";
 function App() {
   const { authUser } = useContext(AuthContext);
@@ -17,6 +18,7 @@ function App() {
       <div className="h-screen w-screen flex justify-center items-center">  
         <Routes>
           <Route path="/" element={authUser ? <Home /> : <Navigate to="/login" />} />
+          <Route path="/user/edit" element={authUser ? <UserEdit /> : <Navigate to="/login" />} />
           <Route path="/login" element={authUser ? <Navigate to="/" /> : <Login />} />
           <Route path="/signup" element={authUser ? <Navigate to="/" /> : <Signup />} />
         </Routes>
