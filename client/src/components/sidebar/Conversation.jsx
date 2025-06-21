@@ -25,7 +25,7 @@ function Conversation({ conversation, lastIdx, userLastChat, fetching }) {
       >
         <div className={`avatar ${isOnline ? "avatar-online" : ""}`}>
           <div className="md:w-12 w-8 rounded-full">
-            <img src={conversation.profilePic} alt="user avatar" />
+            <img src={conversation.profilePic} alt="user avatar" loading="lazy"/>
           </div>
         </div>
 

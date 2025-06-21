@@ -10,6 +10,8 @@ export default function EditForm() {
               Full Name
             </label>
             <input
+              title="Full Name"
+              placeholder="Enter your full name"
               id="full_name"
               name="full_name"
               type="text"
@@ -23,6 +25,8 @@ export default function EditForm() {
               Username
             </label>
             <input
+              title="Edit Username"
+              placeholder="Enter your username"
               id="username"
               name="username"
               type="text"
@@ -38,6 +42,8 @@ export default function EditForm() {
             Gender
           </label>
           <select
+            title="Edit Gender"
+            defaultValue="male"
             name="gender"
             id="gender"
             className="select select-bordered w-full select-sm"
@@ -54,11 +60,13 @@ export default function EditForm() {
               First Name
             </label>
             <input
+              title="Edit First Name"
+              placeholder="Enter your first name"
               id="first_name"
               name="first_name"
               type="text"
               className="input input-bordered w-full text-gray-500 input-sm"
-              value="Kevin Doe"
+              value=""
             />
           </div>
           <div className="w-full">
@@ -66,11 +74,13 @@ export default function EditForm() {
               Last Name
             </label>
             <input
+              title="Edit Last Name"
+              placeholder="Enter your last name"
               id="last_name"
               name="last_name"
               type="text"
               className="input input-bordered w-full text-gray-500 input-sm"
-              value="Kevin Doe"
+              value=""
             />
           </div>
         </div>
@@ -82,6 +92,8 @@ export default function EditForm() {
               Email
             </label>
             <input
+              title="Edit Email"
+              placeholder="Enter your email"
               id="email"
               name="email"
               type="email"
@@ -94,6 +106,8 @@ export default function EditForm() {
               Password
             </label>
             <input
+              title="Edit Password"
+              placeholder="Enter your password"
               id="password"
               name="password"
               type="password"
