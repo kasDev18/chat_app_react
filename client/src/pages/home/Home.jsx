@@ -8,7 +8,7 @@ import "../../index.css";
 function Home() {
   const { authUser } = useAuthContext();
   return (
-    <div className="flex h-screen w-screen   md:p-5">
+    <div className="flex h-screen w-screen md:p-5">
       <Sidebar />
       <MessageContainer />
       <aside className="lg:grid w-1/4 p-5 hidden bg-gray-800">
