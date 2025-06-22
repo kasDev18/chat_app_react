@@ -27,7 +27,7 @@ function Home() {
           <span className="text-center text-gray-500">
             Full Stack Developer
           </span>
-          <div className="flex gap-3 mt-5 w-full">
+          <div className="hidden gap-3 mt-5 w-full">
             <a href="/user/edit" className="w-full">
               <button
                 id="user-edit-btn"

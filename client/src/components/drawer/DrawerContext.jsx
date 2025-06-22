@@ -18,11 +18,11 @@ export default function DrawerContext({ icon, children, style = "" }) {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="menu bg-base-200  text-base-content min-h-full w-3/4 p-4">
+        <ul className="menu bg-base-200  text-base-content min-h-full w-3/4 list">
           <SearchInput />
           <div className="divider px-3"></div>
           {children}
-        </div>
+        </ul>
       </div>
     </div>
   );

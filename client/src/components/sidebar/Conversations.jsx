@@ -38,7 +38,7 @@ function Conversations() {
   }, [conversation, conversations, search]);
 
   return (
-    <div className="py-2 flex flex-col overflow-auto">
+    <ul className="py-2 overflow-y-auto h-full list">
       {search
         ? conversations
             .filter((data) =>
@@ -63,7 +63,7 @@ function Conversations() {
             />
           ))}
       {loading ? <span className="loading loading-spinner"></span> : null}
-    </div>
+    </ul>
   );
 }
 
