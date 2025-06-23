@@ -4,7 +4,7 @@ export default function EditForm() {
       <h2 className="text-xl font-bold text-gray-400">Personal Info</h2>
       <form action="" className="flex flex-col gap-3">
         {/* Full Name and Username  */}
-        <div className="flex gap-3">
+        <div className="md:flex gap-3">
           <div className="w-full">
             <label htmlFor="" className="text-gray-400 text-sm">
               Full Name
@@ -54,7 +54,7 @@ export default function EditForm() {
         </div>
 
         {/* First and Last Name  */}
-        <div className="flex gap-3">
+        <div className="md:flex gap-3">
           <div className="w-full">
             <label htmlFor="" className="text-gray-400 text-sm">
               First Name
@@ -86,7 +86,7 @@ export default function EditForm() {
         </div>
 
         {/* Email and Password  */}
-        <div className="flex gap-3">
+        <div className="md:flex gap-3">
           <div className="w-full">
             <label htmlFor="" className="text-gray-400 text-sm">
               Email
