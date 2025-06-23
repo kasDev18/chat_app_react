@@ -3,7 +3,7 @@ import { useAuthContext } from "../../context/AuthContext";
 export default function EditAvatar() {
     const { authUser } = useAuthContext();
   return (
-    <div className="flex items-center justify-center gap-3 border-2 border-gray-700 pb-3 bg-gray-800 p-5 rounded-2xl">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-3 border-2 border-gray-700 pb-3 bg-gray-800 p-5 rounded-2xl">
       <img
         id="avatar"
         title="Edit Avatar"
