@@ -1,7 +1,13 @@
 import { useAuthContext } from "../../context/AuthContext";
+import useUpdateAvatar from "../../hooks/useUpdateAvatar";
 
 export default function EditAvatar() {
-    const { authUser } = useAuthContext();
+  const { authUser } = useAuthContext();
+
+  const handleClick = () => {
+    const avatar = useUpdateAvatar();
+  };
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-3 border-2 border-gray-700 pb-3 bg-gray-800 p-5 rounded-2xl">
       <img
@@ -14,8 +20,19 @@ export default function EditAvatar() {
         alt="profile avatar"
       />
       <div className="flex flex-col justify-center items-center add-edit-avatar">
-        <input type="file" className="hidden" accept="image/*" id="avatar" name="avatar"/>
-        <button id="edit-avatar-btn" type="button" className="btn btn-active bg-gray-900 btn-md hover:bg-[#984FD2] hover:text-white text-white border-2 hover:border-white border-gray-600">
+        <input
+          type="file"
+          className="hidden"
+          accept="image/*"
+          id="avatar-input"
+          name="avatar-input"
+        />
+        <button
+          id="edit-avatar-btn"
+          type="button"
+          className="btn btn-active bg-gray-900 btn-md hover:bg-[#984FD2] hover:text-white text-white border-2 hover:border-white border-gray-600"
+          onClick={handleClick}
+        >
           Upload new photo
         </button>
         <p className="text-gray-500 text-sm">{authUser.emailAddress}</p>
