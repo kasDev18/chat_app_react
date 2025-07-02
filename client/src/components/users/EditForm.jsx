@@ -1,4 +1,22 @@
+import { useState } from "react";
+import { useAuthContext } from "../../context/AuthContext";
+
+
 export default function EditForm() {
+  const { authUser } = useAuthContext();
+  const [details, setDetails] = useState({
+    full_name: authUser.fullName,
+    first_name: authUser?.firstName,
+    last_name: authUser?.lastName,
+    username: authUser?.username,
+    gender: authUser?.gender,
+    email: authUser.emailAddress,
+    phone: authUser?.phone,
+    password: ""
+  })
+  
+  console.log(details);
+  
   return (
     <div className="w-full mx-auto my-5 border-2 border-gray-700 rounded-lg p-5 flex flex-col gap-5 bg-gray-800">
       <h2 className="text-xl font-bold text-gray-400">Personal Info</h2>
@@ -16,7 +34,7 @@ export default function EditForm() {
               name="full_name"
               type="text"
               className="input input-bordered w-full cursor-not-allowed text-gray-500 input-sm"
-              value="Kevin Doe"
+              value={details.full_name}
               disabled
             />
           </div>
@@ -31,7 +49,7 @@ export default function EditForm() {
               name="username"
               type="text"
               className="input input-bordered w-full text-gray-500 input-sm"
-              value=""
+              value={details.username}
             />
           </div>
         </div>
@@ -47,6 +65,7 @@ export default function EditForm() {
             name="gender"
             id="gender"
             className="select select-bordered w-full select-sm"
+            value={details.gender}
           >
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -66,7 +85,7 @@ export default function EditForm() {
               name="first_name"
               type="text"
               className="input input-bordered w-full text-gray-500 input-sm"
-              value=""
+              value={details.first_name}
             />
           </div>
           <div className="w-full">
@@ -80,7 +99,7 @@ export default function EditForm() {
               name="last_name"
               type="text"
               className="input input-bordered w-full text-gray-500 input-sm"
-              value=""
+              value={details.last_name}
             />
           </div>
         </div>
@@ -98,7 +117,7 @@ export default function EditForm() {
               name="email"
               type="email"
               className="input input-bordered w-full text-gray-500 input-sm"
-              value=""
+              value={details.email}
             />
           </div>
           <div className="w-full">
@@ -112,7 +131,7 @@ export default function EditForm() {
               name="password"
               type="password"
               className="input input-bordered w-full text-gray-500 input-sm"
-              value=""
+              value={details.password}
             />
           </div>
         </div>
