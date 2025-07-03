@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: `${CLIENT_URL}`,
     credentials: true,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/api/", userRoutes);
+app.use("/api/users", userRoutes);
 
 server.listen(SERVER_PORT, '0.0.0.0', () => {
   connectToMongoDB();
