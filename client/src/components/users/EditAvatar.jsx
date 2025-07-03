@@ -1,12 +1,19 @@
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import useUpdateAvatar from "../../hooks/useUpdateAvatar";
 
 export default function EditAvatar() {
   const { authUser } = useAuthContext();
+  const [avatar, setAvatar] = useState(null);
 
   const handleClick = () => {
-    const avatar = useUpdateAvatar();
+    const avatar = useUpdateAvatar(authUser._id);
+    setAvatar(avatar);
   };
+
+  useEffect(() => {
+    handleClick();
+  }, []);
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-3 border-2 border-gray-700 pb-3 bg-gray-800 p-5 rounded-2xl">
