@@ -1,8 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import ENV from "../env.js";
-
-const env = ENV();
+import env from "../env.js";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -11,7 +9,7 @@ cloudinary.config({
   api_secret: env.CLOUDINARY_API_SECRET,
 });
 
-// Configure Multer with Cloudinary storage
+// Configure Multer with Cloudinary storage 
 export const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {

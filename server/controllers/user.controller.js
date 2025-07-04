@@ -1,14 +1,8 @@
 import User from "../models/users.js";
-
-const { CLIENT_URL } = process.env;
-
 export const getUsersForSidebar = async (req, res) => {
   try {
-    const loginUserId = req.user;
-    // const loginUserId = req.user._id;
-
-    // console.log(loginUserId);
-
+    const loginUserId = req.user
+    
     const filteredUsers = await User.find({ _id: { $ne: loginUserId } })
       .select("-password")
       .sort({
