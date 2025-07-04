@@ -10,7 +10,7 @@ import userRoutes from "./routes/user.js";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server, io } from "./socket/socket.js";
 
-dotenv.config();
+dotenv.config({ path: ".env" });
 
 const { PORT, CLIENT_URL } = process.env;
 const SERVER_PORT = PORT || 5001;
