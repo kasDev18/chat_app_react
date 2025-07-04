@@ -1,45 +1,38 @@
 import { editAvatar as url } from "../utils/api/routes";
-import { cloudinaryConfig } from "../cloudinary/index";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-const updateAvatar = async (id) => {
-    const avatarInput = document.getElementById("avatar-input");
-    const img = document.getElementById("avatar");
+const updateAvatar = async (e, id) => {
+    const file = e.target.files[0];
 
-    avatarInput.click();
+    const format = ["image/jpeg", "image/png", "image/jpg"];
+    const formData = new FormData();
+    formData.append("profilePic", file);
 
-    avatarInput.addEventListener("change", async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        const formData = new FormData();
-        formData.append("profilePic", file);
-
-        try {
-            const response = await axios.put(`${url}/${id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                withCredentials: true,
-            });
-
-            const data = response.data;
-
-            if (data.error) {
-                toast.error(data.error);
-                return;
-            }
-
-            // Optionally update the avatar image
-            if (data.profilePicUrl) {
-                img.src = data.profilePicUrl;
-            }
-        } catch (error) {
-            console.error("Error updating avatar:", error);
-            toast.error("Error updating avatar");
+    try {
+        if(!format.includes(file.type)) {
+            toast.error("Invalid file type. Only JPEG, PNG, and JPG files are allowed.");
+            return;
         }
-    });
+        
+        const response = await axios.put(`${url}/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            withCredentials: true,
+        });
+        const data = response.data;
+
+        if (data.error) {
+            toast.error(data.error);
+            return;
+        }
+
+        toast.success(data.message);
+    } catch (error) {
+        console.log(error);
+        toast.error("Error updating avatar");
+    }
 }
 
 export default updateAvatar

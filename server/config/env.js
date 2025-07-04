@@ -1,0 +1,29 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
+export default function ENV() {
+    const {
+        NODE_ENV,
+        PORT,
+        CLIENT_URL,
+        JWT_SECRET,
+        MONGO_DB_URI, 
+        CLOUDINARY_CLOUD_NAME, 
+        CLOUDINARY_UPLOAD_PRESET, 
+        CLOUDINARY_API_KEY, 
+        CLOUDINARY_API_SECRET, 
+    } = process.env;
+
+    return {
+        NODE_ENV,
+        PORT,
+        CLIENT_URL,
+        JWT_SECRET,
+        MONGO_DB_URI, 
+        CLOUDINARY_CLOUD_NAME, 
+        CLOUDINARY_UPLOAD_PRESET, 
+        CLOUDINARY_API_KEY, 
+        CLOUDINARY_API_SECRET,
+    }
+}
