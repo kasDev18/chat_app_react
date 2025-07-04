@@ -1,8 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import ENV from "../env.js";
-
-const env = ENV();
+import env from "../env.js";
 
 // Configure Cloudinary
 cloudinary.config({
