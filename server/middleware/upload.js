@@ -1,7 +1,6 @@
 import multer from "multer";
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+import { storage } from "../config/cloudinary/index.js";
 
-console.log(upload);
+const upload = multer({ storage: storage });
 
 export default upload;

@@ -1,5 +1,7 @@
 import User from "../models/users.js";
 
+const { CLIENT_URL } = process.env;
+
 export const getUsersForSidebar = async (req, res) => {
   try {
     const loginUserId = req.user;
@@ -24,29 +26,17 @@ export const getUsersForSidebar = async (req, res) => {
 export const updateAvatar = async (req, res) => {
   try {
     const { id } = req.params;
-    const ALLOWED_FORMATS = ["image/jpeg", "image/png", "image/jpg"]; // Allowed MIME types
 
-    if (!ALLOWED_FORMATS.includes(req.file.mimetype)) {
-      res.status(406).json({ error: "Invalid file type. Only JPEG, PNG, and JPG files are allowed." });
-      return;
-    }
-    
-    const profilePic = req.file;
-    // console.log(profilePic);
-    
-    
-    
-    // const user = await User.findById(id);
-    // user.profilePic = profilePic;
-    // await user.save();
+    if(!req.file) return res.status(400).json({ error: "No file provided" });
 
-    // const user = await User.findById(id);
-    // user.profilePic = profilePic;
-    // await user.save();
+    res.status(201).json({
+      error: false,
+      message: "Avatar updated successfully",
+    });
 
-    // res.status(201).json(user);
   } catch (err) {
     console.log("Error in updateAvatar controller", err.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
