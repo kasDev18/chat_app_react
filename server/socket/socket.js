@@ -3,7 +3,7 @@ import http from "http";
 import express from "express";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: ".env" });
 
 const { CLIENT_URL } = process.env;
 const app = express();
