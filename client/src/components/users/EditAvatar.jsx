@@ -1,11 +1,18 @@
+import { useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
-import useUpdateAvatar from "../../hooks/useUpdateAvatar";
+import updateAvatar from "../../hooks/useUpdateAvatar";
 
 export default function EditAvatar() {
   const { authUser } = useAuthContext();
+  const [avatar, setAvatar] = useState(null);
 
   const handleClick = () => {
-    const avatar = useUpdateAvatar();
+    const avatarInput = document.getElementById("avatar-input");
+    avatarInput.click();
+  };
+
+  const handleChange = async (e) => {
+    const img = updateAvatar(e, authUser._id);
   };
 
   return (
@@ -26,6 +33,7 @@ export default function EditAvatar() {
           accept="image/*"
           id="avatar-input"
           name="avatar-input"
+          onChange={handleChange}
         />
         <button
           id="edit-avatar-btn"

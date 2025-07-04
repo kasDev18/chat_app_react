@@ -1,16 +1,38 @@
-const updateAvatar = async (avatar) => {
-    const avatarInput = document.getElementById("avatar-input");
-    const img = document.getElementById("avatar");
-    avatarInput.click();
+import { editAvatar as url } from "../utils/api/routes";
+import toast from "react-hot-toast";
+import axios from "axios";
 
-    avatarInput.addEventListener("change", (e) => {
-        const avatar = URL.createObjectURL(e.target.files[0]);
-        img.src = avatar;
+const updateAvatar = async (e, id) => {
+    const file = e.target.files[0];
 
-        console.log("before", img.src);
-        console.log("after", avatar);
+    const format = ["image/jpeg", "image/png", "image/jpg"];
+    const formData = new FormData();
+    formData.append("profilePic", file);
 
-    });
+    try {
+        if(!format.includes(file.type)) {
+            toast.error("Invalid file type. Only JPEG, PNG, and JPG files are allowed.");
+            return;
+        }
+        
+        const response = await axios.put(`${url}/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            withCredentials: true,
+        });
+        const data = response.data;
+
+        if (data.error) {
+            toast.error(data.error);
+            return;
+        }
+
+        toast.success(data.message);
+    } catch (error) {
+        console.log(error);
+        toast.error("Error updating avatar");
+    }
 }
 
 export default updateAvatar
