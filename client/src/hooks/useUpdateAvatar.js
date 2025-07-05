@@ -5,6 +5,11 @@ import axios from "axios";
 const updateAvatar = async (e, id) => {
     const file = e.target.files[0];
 
+    if (!file) {
+        toast.error("No file selected");
+        return;
+    }
+
     const format = ["image/jpeg", "image/png", "image/jpg"];
     const formData = new FormData();
     formData.append("profilePic", file);
@@ -28,7 +33,10 @@ const updateAvatar = async (e, id) => {
             return;
         }
 
+        localStorage.setItem("chat-user", JSON.stringify(data.data));
         toast.success(data.message);
+
+        return data.data;
     } catch (error) {
         console.log(error);
         toast.error("Error updating avatar");
