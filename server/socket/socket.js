@@ -3,7 +3,7 @@ import http from "http";
 import express from "express";
 import dotenv from "dotenv";
 
-dotenv.config({ path: ".env" });
+dotenv.config();
 
 const { CLIENT_URL } = process.env;
 const app = express();
@@ -13,7 +13,7 @@ const io = new Server(server, {
   cors: {
     origin: `${CLIENT_URL}`,
     credentials: true,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   },
 });
 

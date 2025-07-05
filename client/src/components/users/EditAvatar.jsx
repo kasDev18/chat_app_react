@@ -4,7 +4,7 @@ import updateAvatar from "../../hooks/useUpdateAvatar";
 
 export default function EditAvatar() {
   const { authUser } = useAuthContext();
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(authUser.profilePic);
 
   const handleClick = () => {
     const avatarInput = document.getElementById("avatar-input");
@@ -12,19 +12,25 @@ export default function EditAvatar() {
   };
 
   const handleChange = async (e) => {
-    const img = updateAvatar(e, authUser._id);
+    const img = await updateAvatar(e, authUser._id);
+    setAvatar(img.profilePic);
   };
+  
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-3 border-2 border-gray-700 pb-3 bg-gray-800 p-5 rounded-2xl">
       <img
         id="avatar"
         title="Edit Avatar"
-        loading="lazy"
+        loading="eager"
         className="rounded-full border-2 border-amber-500"
-        width={110}
-        src="https://th.bing.com/th/id/R.e2a8b23a278ed28d089dc4a87dbf50ef?rik=35UwSrV89r9CCw&riu=http%3a%2f%2fgcraftupvc.in%2fassets%2fimages%2fabout%2fabout-shape.png&ehk=xkGFVBAk88y56o6rUD%2fKI%2f0Ke3B28bVGUw8Eebtrjxs%3d&risl=&pid=ImgRaw&r=0"
+        style={{ width: 110, height: 110, objectFit: "cover" }}
+        src={avatar || "/images/profile.png"}
         alt="profile avatar"
+        onError={(e) => {
+          e.target.onerror = null; /* Prevent infinite loop */
+          e.target.src = "/images/profile.png"; /* Fallback image */
+        }}
       />
       <div className="flex flex-col justify-center items-center add-edit-avatar">
         <input

@@ -17,8 +17,14 @@ function Home() {
             <img
               className="rounded-full border-2 border-amber-500"
               width={150}
-              src="https://th.bing.com/th/id/R.e2a8b23a278ed28d089dc4a87dbf50ef?rik=35UwSrV89r9CCw&riu=http%3a%2f%2fgcraftupvc.in%2fassets%2fimages%2fabout%2fabout-shape.png&ehk=xkGFVBAk88y56o6rUD%2fKI%2f0Ke3B28bVGUw8Eebtrjxs%3d&risl=&pid=ImgRaw&r=0"
+              height={150}
+              loading="eager"
+              src={authUser.profilePic || "/images/profile.png"}
               alt=""
+              onError={(e) => {
+                e.target.onerror = null; /* Prevent infinite loop */
+                e.target.src = "/images/profile.png"; /* Fallback image */
+              }}
             />
           </div>
           <div className="text-center text-amber-500 text-2xl font-bold mt-5">
