@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import updateAvatar from "../../hooks/useUpdateAvatar";
+import { EnterAnimationProvider } from "../../context/framer/EnterAnimation";
 
 export default function EditAvatar() {
   const { authUser } = useAuthContext();
@@ -15,23 +16,24 @@ export default function EditAvatar() {
     const img = await updateAvatar(e, authUser._id);
     setAvatar(img.profilePic);
   };
-  
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-3 border-2 border-gray-700 pb-3 bg-gray-800 p-5 rounded-2xl">
-      <img
-        id="avatar"
-        title="Edit Avatar"
-        loading="eager"
-        className="rounded-full border-2 border-amber-500"
-        style={{ width: 110, height: 110, objectFit: "cover" }}
-        src={avatar || "/images/profile.png"}
-        alt="profile avatar"
-        onError={(e) => {
-          e.target.onerror = null; /* Prevent infinite loop */
-          e.target.src = "/images/profile.png"; /* Fallback image */
-        }}
-      />
+      <EnterAnimationProvider>
+        <img
+          id="avatar"
+          title="Edit Avatar"
+          loading="eager"
+          className="rounded-full border-2 border-amber-500"
+          style={{ width: 110, height: 110, objectFit: "cover" }}
+          src={avatar || "/images/profile.png"}
+          alt="profile avatar"
+          onError={(e) => {
+            e.target.onerror = null; /* Prevent infinite loop */
+            e.target.src = "/images/profile.png"; /* Fallback image */
+          }}
+        />
+      </EnterAnimationProvider>
       <div className="flex flex-col justify-center items-center add-edit-avatar">
         <input
           type="file"
