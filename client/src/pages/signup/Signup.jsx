@@ -97,7 +97,6 @@ function Signup() {
                 <div className="flex flex-col lg:my-3 my-2">
                   <label className="lg:text-sm text-xs" htmlFor="name">Name</label>
                   <input
-                    type="text"
                     className="input input-warning bg-transparent input-xs w-60 lg:w-100"
                     value={inputs.fullName}
                     onChange={(e) =>
@@ -108,7 +107,6 @@ function Signup() {
                 <div className="flex flex-col lg:my-5 my-2">
                   <label className="lg:text-sm text-xs" htmlFor="email_address">Email Address</label>
                   <input
-                    type="email"
                     className="input input-warning bg-transparent input-xs w-full lg:w-100"
                     value={inputs.emailAddress}
                     onChange={(e) =>
