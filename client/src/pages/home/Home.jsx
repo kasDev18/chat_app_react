@@ -16,8 +16,7 @@ function Home() {
           <div className="pt-5">
             <img
               className="rounded-full border-2 border-amber-500"
-              width={150}
-              height={150}
+              style={{ width: 110, height: 110, objectFit: "cover" }}
               loading="eager"
               src={authUser.profilePic || "/images/profile.png"}
               alt=""

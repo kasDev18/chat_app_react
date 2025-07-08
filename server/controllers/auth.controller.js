@@ -1,13 +1,16 @@
 import User from "../models/users.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/token.js";
+import { userZodSchema } from "../models/users.js";
 
 export const signup = async (req, res) => {
   try {
-    const { fullName, emailAddress, password, confirmPassword, gender } = req.body;
+    const validation = userZodSchema.safeParse(req.body);
+    if (!validation.success) {
+      return res.status(400).json({ error: validation.error.errors[0].message});
+    }
 
-    // console.log(req.body);
-    
+    const { fullName, emailAddress, password, confirmPassword, gender } = req.body;
 
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords doesn't match" });
@@ -19,8 +22,8 @@ export const signup = async (req, res) => {
 
     // https://avatar-placeholder.iran.liara.run
 
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?emailAddress=${emailAddress}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?emailAddress=${emailAddress}`;
+    // const boyProfilePic = `https://avatar.iran.liara.run/public/boy?emailAddress=${emailAddress}`;
+    // const girlProfilePic = `https://avatar.iran.liara.run/public/girl?emailAddress=${emailAddress}`;
 
     // console.log();
     
@@ -30,7 +33,7 @@ export const signup = async (req, res) => {
       emailAddress,
       password: hashedPassword,
       gender,
-      profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
+      profilePic: "",
     });
 
     if (newUser) {
