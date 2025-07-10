@@ -1,6 +1,7 @@
 import Conversation from "../models/conversation.js";
 import Message from "../models/messages.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
+import { getCache, setCache } from "../utils/redisClient.js";
 
 export const sendMessage = async (req, res) => {
     try {
@@ -67,8 +68,11 @@ export const getMessage = async (req, res) => {
     try {
         const { id: userChatToId } = req.params;
         const senderID = req.user._id;
-        // console.log(senderID);
-        
+        const cacheKey = `messages_${senderID}_${userChatToId}`;
+        const cachedMessages = await getCache(cacheKey);
+        if (cachedMessages) {
+            return res.status(201).json(cachedMessages);
+        }
         const conversation = await Conversation.findOne({
             participants: { $all: [senderID, userChatToId] }
         }).populate("messages");
@@ -76,7 +80,7 @@ export const getMessage = async (req, res) => {
         if(!conversation) return res.status(200).json([]);
 
         const messages = conversation.messages;
-
+        await setCache(cacheKey, messages, 3600); // cache for 1 hour
         res.status(201).json(messages);
     } catch (err) {
         console.log("Error in getMessage controller", err.message);
