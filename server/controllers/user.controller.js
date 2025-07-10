@@ -1,14 +1,19 @@
 import User from "../models/users.js";
+import { getCache, setCache } from "../utils/redisClient.js";
 export const getUsersForSidebar = async (req, res) => {
   try {
-    const loginUserId = req.user
-    
+    const loginUserId = req.user;
+    const cacheKey = `users_sidebar_${loginUserId}`;
+    const cachedUsers = await getCache(cacheKey);
+    if (cachedUsers) {
+      return res.status(201).json(cachedUsers);
+    }
     const filteredUsers = await User.find({ _id: { $ne: loginUserId } })
       .select("-password")
       .sort({
         updatedAt: -1,
       });
-
+    await setCache(cacheKey, filteredUsers, 3600); // cache for 1 hour
     res.status(201).json(filteredUsers);
   } catch (err) {
     console.log("Error in getUsers controller", err.message);
