@@ -2,31 +2,30 @@ import User from "../models/users.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/token.js";
 import { userZodSchema } from "../models/users.js";
+import { sendValidationError, sendServerError } from "../utils/errorHandler.js";
+
+// Helper to hash password
+const hashPassword = async (password) => {
+  const salt = await bcrypt.genSalt(10);
+  return bcrypt.hash(password, salt);
+};
 
 export const signup = async (req, res) => {
   try {
     const validation = userZodSchema.safeParse(req.body);
-    if (!validation.success) {
-      return res.status(400).json({ error: validation.error.errors[0].message});
-    }
+    if (!validation.success) return sendValidationError(res, validation);
 
     const { fullName, emailAddress, password, confirmPassword, gender } = req.body;
-
     if (password !== confirmPassword) {
-      return res.status(400).json({ error: "Passwords doesn't match" });
+      return res.status(400).json({ error: "Passwords don't match" });
     }
 
-    // hash passswords
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const existingUser = await User.findOne({ emailAddress });
+    if (existingUser) {
+      return res.status(409).json({ error: "Email address is already registered" });
+    }
 
-    // https://avatar-placeholder.iran.liara.run
-
-    // const boyProfilePic = `https://avatar.iran.liara.run/public/boy?emailAddress=${emailAddress}`;
-    // const girlProfilePic = `https://avatar.iran.liara.run/public/girl?emailAddress=${emailAddress}`;
-
-    // console.log();
-    
+    const hashedPassword = await hashPassword(password);
 
     const newUser = new User({
       fullName,
@@ -36,37 +35,28 @@ export const signup = async (req, res) => {
       profilePic: "",
     });
 
-    if (newUser) {
-      // console.log(newUser);
-      
-      generateToken(newUser._id, res);
-      await newUser.save();
+    generateToken(newUser._id, res);
+    await newUser.save();
 
-      res.status(201).json({
-        _id: newUser._id,
-        fullName: newUser.fullName,
-        emailAddress: newUser.emailAddress,
-        profilePic: newUser.profilePic,
-      });
-    }else{
-      res.status(400).json({error: "Invalid User data"})
-    }
+    res.status(201).json({
+      _id: newUser._id,
+      fullName: newUser.fullName,
+      emailAddress: newUser.emailAddress,
+      profilePic: newUser.profilePic,
+    });
   } catch (err) {
-    console.log("Error in signup controller", err.message);
-    res.status(500).json({ error: "Internal Server Error" });
+    return sendServerError(res, err, "signup controller");
   }
 };
 
 export const login = async (req, res) => {
-  try{
+  try {
     const { emailAddress, password } = req.body;
-    // console.log(emailAddress, password);
-    
     const user = await User.findOne({ emailAddress });
     const validPassword = await bcrypt.compare(password, user?.password || "");
 
-    if(!user || !validPassword){
-      return res.status(400).json({error: "Invalid username or password"})
+    if (!user || !validPassword) {
+      return res.status(400).json({ error: "Invalid username or password" });
     }
 
     generateToken(user._id, res);
@@ -77,18 +67,16 @@ export const login = async (req, res) => {
       emailAddress: user.emailAddress,
       profilePic: user.profilePic,
     });
-  }catch(err){
-    console.log("Error in login controller", err.message);
-    res.status(500).json({ error: "Internal Server Error" });
+  } catch (err) {
+    return sendServerError(res, err, "login controller");
   }
 };
 
 export const logout = (req, res) => {
-  try{
+  try {
     res.cookie("token", "", { maxAge: 0 });
     res.status(200).json({ message: "Logged out successfully" });
-  }catch(err){
-    console.log("Error in logout controller", err.message);
-    res.status(500).json({ error: "Internal Server Error" });
+  } catch (err) {
+    return sendServerError(res, err, "logout controller");
   }
 };
