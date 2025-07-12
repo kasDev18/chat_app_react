@@ -1,44 +1,68 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
-import dotenv from "dotenv";
+import { serverConfig, isDevelopment } from "../config/env.js";
 
-dotenv.config({ path: ".env" });
-
-const { CLIENT_URL } = process.env;
 const app = express();
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: `${CLIENT_URL}`,
+    origin: serverConfig.corsOrigin,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   },
 });
 
-export const getReceiverSocketId = (receiverId) => {
-  return userSocketMap[receiverId];
-}
-
+// Socket connection management
 const userSocketMap = {};
 
+export const getReceiverSocketId = (receiverId) => {
+  return userSocketMap[receiverId];
+};
+
+export const getOnlineUsers = () => {
+  return Object.keys(userSocketMap);
+};
+
+// Socket event handlers
 io.on("connection", (socket) => {
-  console.log("a user connected", socket.id);
-
   const userId = socket.handshake.query.userId;
-  console.log(userId);
   
-  if(userId !== "undefined") userSocketMap[userId] = socket.id;
+  if (isDevelopment()) {
+    console.log(`🔌 User connected: ${socket.id}`);
+    console.log(`👤 User ID: ${userId}`);
+  }
   
-  // io.emit() is used to send events to all the connected clients
-  io.emit("getOnlineUsers", Object.keys(userSocketMap));
+  // Add user to socket map if userId is valid
+  if (userId && userId !== "undefined") {
+    userSocketMap[userId] = socket.id;
+    
+    if (isDevelopment()) {
+      console.log(`📊 Online users: ${getOnlineUsers().length}`);
+    }
+  }
+  
+  // Broadcast online users to all clients
+  io.emit("getOnlineUsers", getOnlineUsers());
 
-  // socket.on() is used to listen to the events. Can be used both on client and server side
+  // Handle user disconnect
   socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id);
-    delete userSocketMap[userId];
-    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    if (isDevelopment()) {
+      console.log(`🔌 User disconnected: ${socket.id}`);
+    }
+    
+    // Remove user from socket map
+    if (userId && userId !== "undefined") {
+      delete userSocketMap[userId];
+      
+      if (isDevelopment()) {
+        console.log(`📊 Online users: ${getOnlineUsers().length}`);
+      }
+    }
+    
+    // Broadcast updated online users
+    io.emit("getOnlineUsers", getOnlineUsers());
   });
 });
 
