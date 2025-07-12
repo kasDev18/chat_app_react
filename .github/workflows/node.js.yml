@@ -26,7 +26,7 @@ jobs:
             server/package-lock.json
             client/package-lock.json
 
-      # ------------------------------
+      
       # BACKEND SETUP
       # ------------------------------
       - name: Install backend dependencies
