@@ -5,64 +5,51 @@ import useConversation from "../../zustand/useConversation";
 import useGetLastChat from "../../hooks/useGetLastChat";
 
 function Conversations() {
-  const [allReceivers, setAllReceivers] = useState([]);
   const { search, setReceiver } = useConversation();
   const { loading, conversations } = useGetConversations();
-  const [conversation, setConversation] = useState(null);
   const { userLastChat, fetching, arrayLastChat } = useGetLastChat();
 
-  const getReceiver = async () => {
-    conversations.map((conversation) => {
-      setAllReceivers((prev) => [...prev, conversation._id]);
-    });
-  };
+  // Update receiver list when conversations change
+  useEffect(() => {
+    console.log("conversations", conversations);
+    if (conversations && conversations.length > 0) {
+      const receiverIds = conversations.map(conversation => conversation._id);
+      setReceiver(receiverIds);
+    }
+  }, [conversations, setReceiver]);
 
   const getIndexLastChat = (conversation) => {
-    let obj;
-    userLastChat.map((user) => {
-      if (
-        user?.senderId === conversation._id ||
-        user?.receiverId === conversation._id
-      )
-        obj = user;
-    });
+    if (!userLastChat || userLastChat.length === 0) return null;
+    
+    const obj = userLastChat.find((user) => 
+      user?.senderId === conversation._id || user?.receiverId === conversation._id
+    );
+
+    if (!obj) return null;
 
     const index = arrayLastChat.findIndex((data) => data === obj?.last_chat);
-    return userLastChat[index];
+    return userLastChat[index] || null;
   };
 
-  useEffect(() => {
-    setConversation(conversations);
-    getReceiver();
-    setReceiver(allReceivers);
-  }, [conversation, conversations, search]);
+  // Filter conversations based on search
+  const filteredConversations = search
+    ? conversations.filter((conversation) =>
+        conversation.fullName.toLowerCase().includes(search.toLowerCase())
+      )
+    : conversations;
 
   return (
     <ul className="py-2 overflow-y-auto h-full list">
-      {search
-        ? conversations
-            .filter((data) =>
-              data.fullName.toLowerCase().includes(search.toLowerCase())
-            )
-            .map((conversation, idx) => (
-              <Conversation
-                key={conversation._id}
-                conversation={conversation}
-                lastIdx={idx === conversations.length - 1}
-                userLastChat={getIndexLastChat(conversation)}
-                fetching={fetching}
-              />
-            ))
-        : conversations.map((conversation, idx) => (
-            <Conversation
-              key={conversation._id}
-              conversation={conversation}
-              lastIdx={idx === conversations.length - 1}
-              userLastChat={userLastChat[idx]}
-              fetching={fetching}
-            />
-          ))}
-      {loading ? <span className="loading loading-spinner"></span> : null}
+      {filteredConversations.map((conversation, idx) => (
+        <Conversation
+          key={conversation._id}
+          conversation={conversation}
+          lastIdx={idx === filteredConversations.length - 1}
+          userLastChat={getIndexLastChat(conversation)}
+          fetching={fetching}
+        />
+      ))}
+      {loading && <span className="loading loading-spinner"></span>}
     </ul>
   );
 }
