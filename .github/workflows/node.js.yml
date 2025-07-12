@@ -27,23 +27,6 @@ jobs:
             client/package-lock.json
 
       # ------------------------------
-      # REDIS SETUP
-      # ------------------------------
-      - name: Install Redis
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y redis-server
-
-      - name: Start Redis service
-        run: |
-          sudo systemctl start redis-server
-          sudo systemctl enable redis-server
-
-      - name: Test Redis connection
-        run: |
-          redis-cli ping
-
-      # ------------------------------
       # BACKEND SETUP
       # ------------------------------
       - name: Install backend dependencies
@@ -56,16 +39,10 @@ jobs:
           touch .env
           echo "${{ secrets.PROD_BACKEND_ENV }}" > .env
 
-      - name: Install PM2 globally
-        run: npm install -g pm2
-
       - name: Start backend with PM2
         working-directory: ./server
         run: |
-          pm2 delete chat-app-be || true
-          pm2 start server.js --name chat-app-be --time
-          pm2 save
-          pm2 startup
+          pm2 restart chat-app-be || pm2 start server.js --name chat-app-be
 
       # ------------------------------
       # FRONTEND SETUP
@@ -94,17 +71,3 @@ jobs:
         run: |
           sudo rm -rf /var/www/html/*
           sudo cp -r ./client/dist/* /var/www/html/
-          sudo chown -R www-data:www-data /var/www/html/
-          sudo chmod -R 755 /var/www/html/
-
-      # ------------------------------
-      # FINAL CHECKS
-      # ------------------------------
-      - name: Check PM2 status
-        run: pm2 status
-
-      - name: Check Redis status
-        run: sudo systemctl status redis-server
-
-      - name: Check Nginx status
-        run: sudo systemctl status nginx
