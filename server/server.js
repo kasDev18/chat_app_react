@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -11,14 +10,13 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server, io } from "./socket/socket.js";
 import './utils/redisClient.js'; // Ensure Redis client connects on server start
 
-dotenv.config({ path: ".env" });
+// Import environment configuration
+import { serverConfig, isDevelopment } from "./config/env.js";
 
-const { PORT, CLIENT_URL } = process.env;
-const SERVER_PORT = PORT || 5001;
-
+// Configure CORS
 app.use(
   cors({
-    origin: `${CLIENT_URL}`,
+    origin: serverConfig.corsOrigin,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
@@ -31,7 +29,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
-server.listen(SERVER_PORT, '0.0.0.0', () => {
+server.listen(serverConfig.port, '0.0.0.0', () => {
   connectToMongoDB();
-  console.log(`Server running on port ${SERVER_PORT}`);
+  console.log(`🚀 Server running on port ${serverConfig.port}`);
+  
+  if (isDevelopment()) {
+    console.log(`📱 Client URL: ${serverConfig.clientUrl}`);
+    console.log(`🌍 Environment: ${serverConfig.nodeEnv}`);
+  }
 });

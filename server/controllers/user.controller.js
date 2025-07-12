@@ -1,22 +1,22 @@
 import User from "../models/users.js";
 import { getCache, setCache } from "../utils/redisClient.js";
 export const getUsersForSidebar = async (req, res) => {
+  
   try {
-    const loginUserId = req.user;
+    const loginUserId = req.user._id;
     const cacheKey = `users_sidebar_${loginUserId}`;
     const cachedUsers = await getCache(cacheKey);
-    if (cachedUsers) {
-      return res.status(201).json(cachedUsers);
+    if (!cachedUsers) {
+      await setCache(cacheKey, filteredUsers, 3600); // cache for 1 hour
     }
-    const filteredUsers = await User.find({ _id: { $ne: loginUserId } })
+    const filteredUsers = await User.find({ _id: { $ne: req.user._id } })
       .select("-password")
       .sort({
         updatedAt: -1,
       });
-    await setCache(cacheKey, filteredUsers, 3600); // cache for 1 hour
-    res.status(201).json(filteredUsers);
+    res.status(200).json(filteredUsers);
   } catch (err) {
-    console.log("Error in getUsers controller", err.message);
+    console.error("Error in getUsers controller:", err.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -38,7 +38,7 @@ export const updateAvatar = async (req, res) => {
       id,
       { profilePic: imageUrl },
       { new: true }
-    );
+    ).select("-password");
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -50,7 +50,7 @@ export const updateAvatar = async (req, res) => {
       data: user,
     });
   } catch (err) {
-    console.log("Error in updateAvatar controller", err.message);
+    console.error("Error in updateAvatar controller:", err.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

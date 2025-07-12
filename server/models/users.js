@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { z } from "zod"; // <-- Add this line
+import { z } from "zod";
 
 // Zod schema for validating user input
 export const userZodSchema = z.object({
@@ -15,25 +15,26 @@ export const userZodSchema = z.object({
     .regex(/[0-9]/, "Password must contain at least one number")
     .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, "Password must contain at least one special character"),
   gender: z.enum(["male", "female"]),
-  profilePic: z.string()
-    .url("Profile picture must be a valid URL")
-    .optional(),
+  profilePic: z.string().optional(),
 });
 
 const userSchema = new mongoose.Schema({
   fullName: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   emailAddress: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    lowercase: true,
+    trim: true
   },
   password: {
     type: String,
     required: true,
-    minlength: 6
+    minlength: 8
   },
   gender: {
     type: String,
