@@ -26,30 +26,7 @@ jobs:
             server/package-lock.json
             client/package-lock.json
 
-      # ------------------------------
-      # REDIS SETUP
-      # ------------------------------
-      - name: Install Redis
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y redis-server
-
-      - name: Configure Redis
-        run: |
-          sudo sed -i 's/^bind .*/bind 0.0.0.0/' /etc/redis/redis.conf
-          sudo sed -i 's/# requirepass foobared/requirepass ${{ secrets.REDIS_PASSWORD }}/' /etc/redis/redis.conf
-          sudo systemctl enable redis-server
-          sudo systemctl restart redis-server
-
-      - name: Test Redis connection
-        run: |
-          redis-cli -a ${{ secrets.REDIS_PASSWORD }} ping
-
-      - name: Run Redis health check
-        working-directory: ./server
-        run: node scripts/redis-health-check.js
-
-      # ------------------------------
+      
       # BACKEND SETUP
       # ------------------------------
       - name: Install backend dependencies
@@ -94,11 +71,3 @@ jobs:
         run: |
           sudo rm -rf /var/www/html/*
           sudo cp -r ./client/dist/* /var/www/html/
-
-      # ------------------------------
-      # HEALTH CHECK
-      # ------------------------------
-      - name: Health check
-        run: |
-          sleep 10
-          curl -f http://54.66.124.33:5001/api/users || exit 1

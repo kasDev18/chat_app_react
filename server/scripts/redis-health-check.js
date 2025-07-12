@@ -1,8 +1,9 @@
 import { createClient } from 'redis';
-import { redisOptions } from '../config/redis.js';
+
+const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
 
 const healthCheck = async () => {
-  const client = createClient(redisOptions);
+  const client = createClient({ url: redisUrl });
   
   try {
     await client.connect();
