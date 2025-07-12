@@ -36,7 +36,7 @@ jobs:
 
       - name: Configure Redis
         run: |
-          sudo sed -i 's/bind 127.0.0.1/bind 0.0.0.0/' /etc/redis/redis.conf
+          sudo sed -i 's/bind 54.66.124.33/bind 0.0.0.0/' /etc/redis/redis.conf
           sudo sed -i 's/# requirepass foobared/requirepass ${{ secrets.REDIS_PASSWORD }}/' /etc/redis/redis.conf
           sudo systemctl enable redis-server
           sudo systemctl restart redis-server
