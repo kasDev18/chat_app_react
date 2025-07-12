@@ -34,14 +34,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y redis-server
 
-      - name: Start Redis service
+      - name: Configure Redis
         run: |
-          sudo systemctl start redis-server
+          sudo sed -i 's/bind 127.0.0.1/bind 0.0.0.0/' /etc/redis/redis.conf
+          sudo sed -i 's/# requirepass foobared/requirepass ${{ secrets.REDIS_PASSWORD }}/' /etc/redis/redis.conf
           sudo systemctl enable redis-server
+          sudo systemctl restart redis-server
 
       - name: Test Redis connection
         run: |
-          redis-cli ping
+          redis-cli -a ${{ secrets.REDIS_PASSWORD }} ping
+
+      - name: Run Redis health check
+        working-directory: ./server
+        run: node scripts/redis-health-check.js
 
       # ------------------------------
       # BACKEND SETUP
@@ -56,16 +62,10 @@ jobs:
           touch .env
           echo "${{ secrets.PROD_BACKEND_ENV }}" > .env
 
-      - name: Install PM2 globally
-        run: npm install -g pm2
-
       - name: Start backend with PM2
         working-directory: ./server
         run: |
-          pm2 delete chat-app-be || true
-          pm2 start server.js --name chat-app-be --time
-          pm2 save
-          pm2 startup
+          pm2 restart chat-app-be || pm2 start server.js --name chat-app-be
 
       # ------------------------------
       # FRONTEND SETUP
@@ -94,17 +94,11 @@ jobs:
         run: |
           sudo rm -rf /var/www/html/*
           sudo cp -r ./client/dist/* /var/www/html/
-          sudo chown -R www-data:www-data /var/www/html/
-          sudo chmod -R 755 /var/www/html/
 
       # ------------------------------
-      # FINAL CHECKS
+      # HEALTH CHECK
       # ------------------------------
-      - name: Check PM2 status
-        run: pm2 status
-
-      - name: Check Redis status
-        run: sudo systemctl status redis-server
-
-      - name: Check Nginx status
-        run: sudo systemctl status nginx
+      - name: Health check
+        run: |
+          sleep 10
+          curl -f http://54.66.124.33:5001/api/users || exit 1

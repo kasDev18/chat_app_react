@@ -1,7 +1,7 @@
 import Conversation from "../models/conversation.js";
 import Message from "../models/messages.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
-import { getCache, setCache } from "../utils/redisClient.js";
+import { getCache, setCache, deleteCache } from "../utils/redisClient.js";
 
 export const sendMessage = async (req, res) => {
     try {
@@ -29,15 +29,17 @@ export const sendMessage = async (req, res) => {
             conversation.messages.push(newMessage._id);
         }
 
-        // Save both conversation and message in parallel
         await Promise.all([conversation.save(), newMessage.save()]);
 
         // Socket.IO functionality
         const receiverSocketId = getReceiverSocketId(receiverId);
         if (receiverSocketId) {
-            // io.to(<socket_id>).emit() used to send events to specific client
             io.to(receiverSocketId).emit("newMessage", newMessage);
         }
+
+        // Clear message cache for both sender and receiver
+        await deleteCache(`messages_${senderId}_${receiverId}`);
+        await deleteCache(`messages_${receiverId}_${senderId}`);
 
         res.status(201).json(newMessage);
     } catch (err) {
@@ -62,7 +64,7 @@ export const getMessage = async (req, res) => {
         if (!conversation) return res.status(200).json([]);
 
         const messages = conversation.messages;
-        await setCache(cacheKey, messages, 3600); // cache for 1 hour
+        await setCache(cacheKey, messages, 3600);
         res.status(200).json(messages);
     } catch (err) {
         console.error("Error in getMessage controller:", err.message);
