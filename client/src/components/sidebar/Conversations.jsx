@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Conversation from "./Conversation";
 import useGetConversations from "../../hooks/useGetConversations";
 import useConversation from "../../zustand/useConversation";
@@ -7,7 +7,7 @@ import useGetLastChat from "../../hooks/useGetLastChat";
 function Conversations() {
   const { search, setReceiver } = useConversation();
   const { loading, conversations } = useGetConversations();
-  const { userLastChat, fetching, arrayLastChat } = useGetLastChat();
+  const { userLastChat, arrayLastChat } = useGetLastChat();
 
   // Update receiver list when conversations change
   useEffect(() => {
@@ -46,10 +46,9 @@ function Conversations() {
           conversation={conversation}
           lastIdx={idx === filteredConversations.length - 1}
           userLastChat={getIndexLastChat(conversation)}
-          fetching={fetching}
         />
       ))}
-      {loading && <span className="loading loading-spinner"></span>}
+      {/* {loading && <span className="loading loading-spinner"></span>} */}
     </ul>
   );
 }
