@@ -19,7 +19,7 @@ function Messages() {
         ? [...Array(messages.length)].map((_, idx) => (
             <MessageSkeleton key={idx} />
           ))
-        : loading && [...Array(5)].map((_, idx) => <MessageSkeleton key={idx} />)}
+        : loading && [...Array(1)].map((_, idx) => <MessageSkeleton key={idx} />)}
       {!loading &&
         messages.length > 0 &&
         messages.map((message, idx) => (
