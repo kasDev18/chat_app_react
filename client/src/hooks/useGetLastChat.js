@@ -54,6 +54,9 @@ function useGetLastChat() {
         };
         setUserLastChat(messages); /* Set User Last Chat object */
         setArrayLastChat(arrMessages); /* Set Array Last Chat */
+
+        // console.log("userLastChat", userLastChat);
+        
       } catch (error) {
         toast.error(error.message);
       } finally {
