@@ -41,10 +41,10 @@ function Conversation({ conversation, lastIdx, userLastChat }) {
                 {conversation.fullName}
               </p>
               <div className="hidden md:flex justify-between w-full">
-                {userLastChat?.last_chat ? (
+                {userLastChat ? (
                   <>
                     <p className="text-gray-400 text-xs 2xl:text-md italic truncate w-44 md:w-56 2xl:w-72">
-                      {userLastChat.last_chat}
+                      {userLastChat?.last_chat}
                     </p>
                     <p className="text-gray-400 text-xs 2xl:text-md italic text-end whitespace-nowrap">
                       {formattedDateTime}

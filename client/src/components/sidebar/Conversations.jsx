@@ -11,8 +11,9 @@ function Conversations() {
 
   // Update receiver list when conversations change
   useEffect(() => {
-    console.log("conversations", conversations);
-    console.log("arrayLastChat", arrayLastChat);
+    // console.log("conversations", conversations);
+    // console.log("arrayLastChat", arrayLastChat);
+    console.log("userLastChat", userLastChat);
     
     if (conversations && conversations.length > 0) {
       const receiverIds = conversations.map(conversation => conversation._id);
@@ -27,12 +28,12 @@ function Conversations() {
       user?.senderId === conversation._id || user?.receiverId === conversation._id
     );
 
-    console.log("obj", obj);
+    // console.log("obj", obj);
     
     if (!obj) return null;
 
     const index = arrayLastChat.findIndex((data) => data === obj?.last_chat);
-    return userLastChat[index] || null;
+    return userLastChat[index];
   };
 
   // console.log("userLastChat", userLastChat);
