@@ -4,11 +4,10 @@ import { useSocketContext } from "../../context/SocketContext";
 import { extractTime } from "../../utils/extractTime";
 import useGetLastChat from "../../hooks/useGetLastChat";
 
-function Conversation({ conversation, lastIdx, userLastChat }) {
+function Conversation({ conversation, lastIdx, userLastChat, fetching }) {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id === conversation._id;
   const { onlineUsers } = useSocketContext();
-  const { fetching } = useGetLastChat();
   const isOnline = onlineUsers.includes(conversation._id);
   const formattedDateTime = extractTime(
     userLastChat?.updatedAt || userLastChat?.createdAt
@@ -41,10 +40,10 @@ function Conversation({ conversation, lastIdx, userLastChat }) {
                 {conversation.fullName}
               </p>
               <div className="hidden md:flex justify-between w-full">
-                {userLastChat ? (
+                {userLastChat?.last_chat ? (
                   <>
                     <p className="text-gray-400 text-xs 2xl:text-md italic truncate w-44 md:w-56 2xl:w-72">
-                      {userLastChat?.last_chat}
+                      {userLastChat.last_chat}
                     </p>
                     <p className="text-gray-400 text-xs 2xl:text-md italic text-end whitespace-nowrap">
                       {formattedDateTime}
